@@ -1,0 +1,9 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api project(":etl-core")
+
+    implementation 'org.apache.beam:beam-runners-google-cloud-dataflow-java'
+}

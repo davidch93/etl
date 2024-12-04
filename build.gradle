@@ -1,0 +1,29 @@
+allprojects {
+    group = 'com.github.davidch93.etl'
+    version = '1.0.0'
+    description = 'ETL pipeline to feed CDC (Change Data Capture) data using Google Cloud Platform.'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    plugins.withId('java-library') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+
+        dependencies {
+            implementation platform(project(':etl-bom'))
+            testImplementation 'org.junit.jupiter:junit-jupiter'
+            testImplementation 'org.mockito:mockito-core'
+        }
+    }
+}
