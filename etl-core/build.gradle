@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api 'com.sun.mail:jakarta.mail'
+    implementation 'org.apache.spark:spark-core_2.13'
+}

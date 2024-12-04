@@ -1,0 +1,49 @@
+plugins {
+    id 'java-platform'
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+ext {
+    scalaVersion = '2.13'
+    sparkVersion = '3.5.3'
+    sparkBigQueryVersion = '0.41.0'
+    deequVersion = '2.0.8-spark-3.5'
+
+    beamVersion = '2.61.0'
+
+    jcommanderVersion = '2.0'
+    jakartaMailVersion = '2.0.1'
+
+    junitVersion = '5.11.3'
+    mockitoVersion = '5.14.2'
+}
+
+dependencies {
+    constraints {
+        // Core dependencies
+        api project(":etl-core")
+        api project(":etl-batch")
+        api project(":etl-sentry")
+
+        // Spark dependencies
+        api "org.apache.spark:spark-core_$scalaVersion:$sparkVersion"
+        api "org.apache.spark:spark-sql_$scalaVersion:$sparkVersion"
+        api "org.apache.spark:spark-sql-kafka-0-10_$scalaVersion:$sparkVersion"
+        api "com.google.cloud.spark:spark-bigquery-with-dependencies_$scalaVersion:$sparkBigQueryVersion"
+        api "com.amazon.deequ:deequ:$deequVersion"
+
+        // Apache beam dependencies
+        api "org.apache.beam:beam-runners-google-cloud-dataflow-java:$beamVersion"
+
+        // Utility dependencies
+        api "org.jcommander:jcommander:$jcommanderVersion"
+        api "com.sun.mail:jakarta.mail:$jakartaMailVersion"
+
+        // Testing dependencies
+        api "org.junit.jupiter:junit-jupiter:$junitVersion"
+        api "org.mockito:mockito-core:$mockitoVersion"
+    }
+}

@@ -1,0 +1,11 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api project(":etl-core")
+
+    implementation 'org.apache.spark:spark-core_2.13'
+    implementation 'org.apache.spark:spark-sql_2.13'
+    implementation 'com.amazon.deequ:deequ'
+}
