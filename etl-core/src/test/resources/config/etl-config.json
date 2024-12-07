@@ -1,0 +1,17 @@
+{
+  "group_name": "non-financial",
+  "max_threads": 30,
+  "kafka_config" : {
+    "bootstrap_servers": "localhost:9092",
+    "group_id": "etl.staging",
+    "default_offset": "earliest"
+  },
+  "bigquery_config": {
+    "project_id": "dataoptimus-staging",
+    "region": "asia-southeast1",
+    "create_disposition": "CREATE_IF_NEEDED",
+    "prefix_dataset_id": "bronze",
+    "partition_expiry_millis": 172800000,
+    "temporary_gcs_bucket": "gs://dataproc-temp-staging"
+  }
+}

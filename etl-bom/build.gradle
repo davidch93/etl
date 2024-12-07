@@ -18,6 +18,7 @@ ext {
     jakartaMailVersion = '2.0.1'
 
     junitVersion = '5.11.3'
+    assertJVersion = '3.26.3'
     mockitoVersion = '5.14.2'
 }
 
@@ -44,6 +45,7 @@ dependencies {
 
         // Testing dependencies
         api "org.junit.jupiter:junit-jupiter:$junitVersion"
+        api "org.assertj:assertj-core:$assertJVersion"
         api "org.mockito:mockito-core:$mockitoVersion"
     }
 }
