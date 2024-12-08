@@ -1,5 +1,6 @@
 {
   "table_name": "github_staging_orders",
+  "source_type": "MYSQL",
   "schema": {
     "type": "record",
     "name": "orders",

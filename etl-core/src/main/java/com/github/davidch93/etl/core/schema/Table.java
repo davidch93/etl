@@ -33,8 +33,32 @@ import java.util.List;
  */
 public class Table implements Serializable {
 
+    /**
+     * Enumeration representing the supported types of source databases.
+     * <p>
+     * This enum is primarily used to categorize and identify the database
+     * systems supported by the ETL (Extract, Transform, Load) process.
+     * </p>
+     *
+     * <ul>
+     *     <li>{@link #MYSQL} - Represents a MySQL database.</li>
+     *     <li>{@link #POSTGRESQL} - Represents a PostgreSQL database.</li>
+     *     <li>{@link #MONGODB} - Represents a MongoDB database.</li>
+     *     <li>{@link #DYNAMODB} - Represents a DynamoDB database.</li>
+     * </ul>
+     */
+    public enum Source {
+        MYSQL,
+        POSTGRESQL,
+        MONGODB,
+        DYNAMODB
+    }
+
     @JsonProperty(value = "table_name", required = true)
     private String name;
+
+    @JsonProperty(value = "source_type", required = true)
+    private Source source;
 
     @JsonProperty(value = "schema", required = true)
     private TableSchema schema;
@@ -55,6 +79,15 @@ public class Table implements Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Gets the source type.
+     *
+     * @return the source type
+     */
+    public Source getSource() {
+        return source;
     }
 
     /**
