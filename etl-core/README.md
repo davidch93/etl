@@ -33,6 +33,7 @@ Define a table schema definition stored in Filesystem with the following structu
 ```json
 {
   "table_name": "github_staging_orders",
+  "source_type": "MYSQL",
   "schema": {
     "type": "record",
     "name": "orders",

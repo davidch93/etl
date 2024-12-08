@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.github.davidch93.etl.core.schema.Field.FieldType;
 import static com.github.davidch93.etl.core.schema.FieldRule.Rule;
+import static com.github.davidch93.etl.core.schema.Table.Source;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -22,6 +23,7 @@ public class SchemaLoaderTest {
         // Assert table-level properties
         assertThat(table).isNotNull();
         assertThat(table.getName()).isEqualTo("github_staging_orders");
+        assertThat(table.getSource()).isEqualTo(Source.MYSQL);
         assertThat(table.getConstraintKeys()).isNotEmpty().containsExactly("id");
         assertThat(table.getTablePartition()).isNotNull()
             .hasFieldOrPropertyWithValue("sourceColumn", "created_at")
