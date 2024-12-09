@@ -15,28 +15,28 @@ public class RowTest {
         String jsonString = "{\"name\":\"John\",\"age\":30,\"is_married\":false,\"weight\":79.99,\"rules\":[]}";
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
-        Object objectRow = Row.convert(jsonNode).as(FieldType.STRING);
+        Object objectRow = Row.convert(jsonNode, FieldType.STRING);
         assertThat(objectRow).isEqualTo(jsonString);
 
-        Object longObject = Row.convert(jsonNode.get("age")).as(FieldType.INTEGER);
+        Object longObject = Row.convert(jsonNode.get("age"), FieldType.INTEGER);
         assertThat(longObject).isEqualTo(30L);
 
-        Object booleanObject = Row.convert(jsonNode.get("is_married")).as(FieldType.BOOLEAN);
+        Object booleanObject = Row.convert(jsonNode.get("is_married"), FieldType.BOOLEAN);
         assertThat(booleanObject).isEqualTo(false);
 
-        Object doubleObject = Row.convert(jsonNode.get("weight")).as(FieldType.DOUBLE);
+        Object doubleObject = Row.convert(jsonNode.get("weight"), FieldType.DOUBLE);
         assertThat(doubleObject).isEqualTo(79.99);
 
-        Object arrayObject = Row.convert(jsonNode.get("rules")).as(FieldType.STRING);
+        Object arrayObject = Row.convert(jsonNode.get("rules"), FieldType.STRING);
         assertThat(arrayObject).isEqualTo("[]");
 
-        Object stringObject = Row.convert(jsonNode.get("name")).as(FieldType.STRING);
+        Object stringObject = Row.convert(jsonNode.get("name"), FieldType.STRING);
         assertThat(stringObject).isEqualTo("John");
     }
 
     @Test
     void testConvert_withNullValue_thenExpectThrowsRuntimeException() {
-        assertThatThrownBy(() -> Row.convert(null))
+        assertThatThrownBy(() -> Row.convert(null, FieldType.STRING))
             .isInstanceOf(RuntimeException.class)
             .hasMessageContaining("The Json value must not be null!");
     }
@@ -46,7 +46,7 @@ public class RowTest {
         String jsonString = "1708646400000";
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
-        assertThatThrownBy(() -> Row.convert(jsonNode).as(FieldType.DECIMAL))
+        assertThatThrownBy(() -> Row.convert(jsonNode, FieldType.DECIMAL))
             .isInstanceOf(RuntimeException.class)
             .hasMessageContaining("Unsupported field type was found: `DECIMAL`!");
     }
@@ -56,10 +56,10 @@ public class RowTest {
         String jsonString = "{\"age\":30,\"weight\":79.99}";
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
-        Object longObject = Row.convert(jsonNode.get("age")).as(FieldType.STRING);
+        Object longObject = Row.convert(jsonNode.get("age"), FieldType.STRING);
         assertThat(longObject).isEqualTo("30");
 
-        Object doubleObject = Row.convert(jsonNode.get("weight")).as(FieldType.STRING);
+        Object doubleObject = Row.convert(jsonNode.get("weight"), FieldType.STRING);
         assertThat(doubleObject).isEqualTo("79.99");
     }
 
@@ -68,10 +68,10 @@ public class RowTest {
         String jsonString = "{\"age\":\"30\",\"weight\":\"79.99\"}";
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
-        Object longObject = Row.convert(jsonNode.get("age")).as(FieldType.INTEGER);
+        Object longObject = Row.convert(jsonNode.get("age"), FieldType.INTEGER);
         assertThat(longObject).isEqualTo(30L);
 
-        Object doubleObject = Row.convert(jsonNode.get("weight")).as(FieldType.DOUBLE);
+        Object doubleObject = Row.convert(jsonNode.get("weight"), FieldType.DOUBLE);
         assertThat(doubleObject).isEqualTo(79.99);
     }
 
@@ -80,10 +80,10 @@ public class RowTest {
         String jsonString = "{\"age\":30,\"weight\":79.99}";
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
-        Object doubleObject = Row.convert(jsonNode.get("age")).as(FieldType.DOUBLE);
+        Object doubleObject = Row.convert(jsonNode.get("age"), FieldType.DOUBLE);
         assertThat(doubleObject).isEqualTo(30.0);
 
-        Object longObject = Row.convert(jsonNode.get("weight")).as(FieldType.INTEGER);
+        Object longObject = Row.convert(jsonNode.get("weight"), FieldType.INTEGER);
         assertThat(longObject).isEqualTo(79L);
     }
 }
