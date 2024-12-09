@@ -12,8 +12,7 @@ import java.util.Objects;
  * Example usage:
  * <pre>{@code
  * JsonNode jsonData = ...; // JSON data representing a single row
- * Schema schema = ...; // The schema defining the structure of the data
- * Object value = Row.convert(jsonData).as(FieldType.INTEGER);
+ * Object value = Row.convert(jsonData, FieldType.INTEGER);
  * }</pre>
  * </p>
  *
@@ -27,34 +26,19 @@ import java.util.Objects;
  *
  * @author david.christianto
  */
-public class Row {
-
-    private final JsonNode value;
-
-    private Row(JsonNode value) {
-        this.value = value;
-    }
+public final class Row {
 
     /**
-     * Converts a JSON value into a Row instance.
+     * Converts a JSON value into a specific data type based on the provided field type
      *
-     * @param value The JSON value to convert.
-     * @return The Row instance encapsulating the JSON value.
-     * @throws NullPointerException if the provided JSON value is null.
-     */
-    public static Row convert(JsonNode value) {
-        Objects.requireNonNull(value, "The Json value must not be null!");
-        return new Row(value);
-    }
-
-    /**
-     * Retrieves the JSON value of the row as a specific data type based on the provided field type.
-     *
-     * @param fieldType The field type to convert the JSON value to.
-     * @return The JSON value converted to the specified data type.
+     * @param value     the JSON value to convert.
+     * @param fieldType the field type to convert the JSON value to.
+     * @return the JSON value converted to the specified data type.
      * @throws RuntimeException if the field type is not supported.
      */
-    public Object as(FieldType fieldType) {
+    public static Object convert(JsonNode value, FieldType fieldType) {
+        Objects.requireNonNull(value, "The Json value must not be null!");
+
         if (value.isBoolean()) {
             return value.booleanValue();
         } else if (value.isObject() || value.isArray()) {
