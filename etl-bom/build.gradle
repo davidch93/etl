@@ -13,6 +13,7 @@ ext {
     deequVersion = '2.0.8-spark-3.5'
 
     beamVersion = '2.61.0'
+    beamGoogleCloudNioVersion = '0.127.27'
 
     jcommanderVersion = '2.0'
     jakartaMailVersion = '2.0.1'
@@ -27,6 +28,7 @@ dependencies {
         // Core dependencies
         api project(":etl-core")
         api project(":etl-batch")
+        api project(":etl-stream")
         api project(":etl-sentry")
 
         // Spark dependencies
@@ -38,6 +40,8 @@ dependencies {
 
         // Apache beam dependencies
         api "org.apache.beam:beam-runners-google-cloud-dataflow-java:$beamVersion"
+        api "org.apache.beam:beam-sdks-java-io-kafka:$beamVersion"
+        api "org.apache.beam:beam-runners-direct-java:$beamVersion"
 
         // Utility dependencies
         api "org.jcommander:jcommander:$jcommanderVersion"
@@ -47,5 +51,6 @@ dependencies {
         api "org.junit.jupiter:junit-jupiter:$junitVersion"
         api "org.assertj:assertj-core:$assertJVersion"
         api "org.mockito:mockito-core:$mockitoVersion"
+        api "com.google.cloud:google-cloud-nio:$beamGoogleCloudNioVersion"
     }
 }

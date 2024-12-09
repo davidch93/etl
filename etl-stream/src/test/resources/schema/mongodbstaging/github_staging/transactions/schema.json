@@ -1,0 +1,58 @@
+{
+  "table_name": "github_staging_transactions",
+  "source_type": "MONGODB",
+  "schema": {
+    "type": "record",
+    "name": "transactions",
+    "doc": "Schema for the transactions table",
+    "fields": [
+      {
+        "name": "_id",
+        "type": "STRING",
+        "nullable": false,
+        "doc": "Unique identifier for the transaction",
+        "rules": [
+          {
+            "rule": "IS_PRIMARY_KEY",
+            "hint": "The value of this column must be unique and not NULL!"
+          }
+        ]
+      },
+      {
+        "name": "user_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "doc": "The id corresponding to the user table"
+      },
+      {
+        "name": "order_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "doc": "The id corresponding to the order table"
+      },
+      {
+        "name": "notes",
+        "type": "STRING",
+        "nullable": true,
+        "doc": "The transaction notes"
+      },
+      {
+        "name": "created_at",
+        "type": "INTEGER",
+        "nullable": true,
+        "doc": "Date of the order was created"
+      },
+      {
+        "name": "updated_at",
+        "type": "INTEGER",
+        "nullable": true,
+        "doc": "Date of the order was updated"
+      }
+    ]
+  },
+  "constraint_keys": [
+    "_id",
+    "user_id",
+    "order_id"
+  ]
+}

@@ -53,12 +53,30 @@ public class BigQueryConfig implements Serializable {
     }
 
     /**
+     * Sets the Google Cloud project ID associated with the BigQuery configuration.
+     *
+     * @param projectId The project ID.
+     */
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    /**
      * Gets the Google Cloud region where BigQuery resources are located.
      *
      * @return The region.
      */
     public String getRegion() {
         return region;
+    }
+
+    /**
+     * Sets the Google Cloud region where BigQuery resources are located.
+     *
+     * @param region The region.
+     */
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     /**
@@ -75,12 +93,30 @@ public class BigQueryConfig implements Serializable {
     }
 
     /**
+     * Sets the table creation disposition for BigQuery operations.
+     *
+     * @param createDisposition The table creation disposition.
+     */
+    public void setCreateDisposition(String createDisposition) {
+        this.createDisposition = createDisposition;
+    }
+
+    /**
      * Gets the prefix used for dataset IDs in BigQuery.
      *
      * @return The prefix for dataset IDs.
      */
     public String getPrefixDatasetId() {
         return prefixDatasetId;
+    }
+
+    /**
+     * Sets the prefix used for dataset IDs in BigQuery.
+     *
+     * @param prefixDatasetId The prefix for dataset IDs.
+     */
+    public void setPrefixDatasetId(String prefixDatasetId) {
+        this.prefixDatasetId = prefixDatasetId;
     }
 
     /**
@@ -97,6 +133,15 @@ public class BigQueryConfig implements Serializable {
     }
 
     /**
+     * Sets the partition expiration time in milliseconds.
+     *
+     * @param partitionExpiryMillis The partition expiration time in milliseconds.
+     */
+    public void setPartitionExpiryMillis(Long partitionExpiryMillis) {
+        this.partitionExpiryMillis = partitionExpiryMillis;
+    }
+
+    /**
      * Gets the name of the temporary Google Cloud Storage bucket used for intermediate data storage.
      * <p>
      * This property is optional and is typically used during BigQuery load jobs or write operations
@@ -107,5 +152,14 @@ public class BigQueryConfig implements Serializable {
      */
     public String getTemporaryGcsBucket() {
         return temporaryGcsBucket;
+    }
+
+    /**
+     * Sets  the name of the temporary Google Cloud Storage bucket used for intermediate data storage.
+     *
+     * @param temporaryGcsBucket The temporary GCS bucket name, or {@code null} if not specified.
+     */
+    public void setTemporaryGcsBucket(String temporaryGcsBucket) {
+        this.temporaryGcsBucket = temporaryGcsBucket;
     }
 }

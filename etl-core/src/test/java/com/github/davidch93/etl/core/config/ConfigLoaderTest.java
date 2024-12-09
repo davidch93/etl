@@ -65,7 +65,7 @@ class ConfigLoaderTest {
 
         BigQueryConfig bigQueryConfig = config.getBigQueryConfig();
         assertThat(bigQueryConfig).isNotNull();
-        assertThat(bigQueryConfig.getProjectId()).isEqualTo("dataoptimus-staging");
+        assertThat(bigQueryConfig.getProjectId()).isEqualTo("github-staging");
         assertThat(bigQueryConfig.getRegion()).isEqualTo("asia-southeast1");
         assertThat(bigQueryConfig.getCreateDisposition()).isEqualTo("CREATE_IF_NEEDED");
         assertThat(bigQueryConfig.getPrefixDatasetId()).isEqualTo("bronze");
