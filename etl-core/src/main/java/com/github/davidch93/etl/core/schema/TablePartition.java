@@ -37,6 +37,9 @@ public class TablePartition implements Serializable {
     @JsonProperty(value = "partition_filter_required")
     private boolean partitionFilterRequired;
 
+    @JsonProperty(value = "doc")
+    private String description = "";
+
     /**
      * Gets the source column name.
      *
@@ -71,5 +74,14 @@ public class TablePartition implements Serializable {
      */
     public boolean isPartitionFilterRequired() {
         return partitionFilterRequired;
+    }
+
+    /**
+     * Gets the description of the partition column.
+     *
+     * @return the partition column description, providing context or documentation about its purpose.
+     */
+    public String getDescription() {
+        return description;
     }
 }
