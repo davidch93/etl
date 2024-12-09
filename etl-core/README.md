@@ -1,14 +1,30 @@
 # ETL Core Module
 
-The `etl-core` module is the foundational component for running and managing Extract, Transform, Load (ETL) operations. 
+The `etl-core` module is the foundational component for running and managing Extract, Transform, Load (ETL) operations.
 It provides core utilities, schema handling, email notifications, and configuration management essential
 for building robust data processing pipelines.
 
----
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Features](#features)
+    - [Schema Management](#1-schema-management)
+    - [Configuration Management](#2-configuration-management)
+    - [Email Notification](#3-email-notification)
+- [Usage](#usage)
+    - [Schema](#schema)
+    - [Emails](#emails)
+
+## Requirements
+
+- **Java Version**: 17 or higher
+- **Build Tool**: Maven or Gradle
+- SMTP server credentials for email notifications.
 
 ## Features
 
 ### 1. Schema Management
+
 - **Schema Loader**: Load and parse table schemas from JSON files for use in ETL operations.
 - **Model Definitions**:
     - `Table`: Represents table-level metadata.
@@ -16,13 +32,13 @@ for building robust data processing pipelines.
     - `Field`: Represents individual fields within the schema, supporting validation rules.
 
 ### 2. Configuration Management
+
 - **Config Loader**: Load application-specific configurations from JSON files with custom-defined models.
 
 ### 3. Email Notification
+
 - **Email Utility**: Send email notifications via SMTP for monitoring and alerts.
 - Supports system property-based configuration for SMTP settings.
-
----
 
 ## Usage
 
@@ -112,7 +128,8 @@ Define a table schema definition stored in Filesystem with the following structu
     "source_column": "created_at",
     "partition_column": "order_timestamp",
     "partition_type": "DAY",
-    "partition_filter_required": false
+    "partition_filter_required": false,
+    "doc": "A partition column indicating the date of the order was created"
   },
   "clustered_columns": [
     "id"
