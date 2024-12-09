@@ -7,7 +7,7 @@
     "default_offset": "earliest"
   },
   "bigquery_config": {
-    "project_id": "dataoptimus-staging",
+    "project_id": "github-staging",
     "region": "asia-southeast1",
     "create_disposition": "CREATE_IF_NEEDED",
     "prefix_dataset_id": "bronze",

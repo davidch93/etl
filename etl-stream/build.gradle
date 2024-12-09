@@ -6,4 +6,20 @@ dependencies {
     api project(":etl-core")
 
     implementation 'org.apache.beam:beam-runners-google-cloud-dataflow-java'
+    implementation 'org.apache.beam:beam-sdks-java-io-kafka'
+    runtimeOnly 'org.apache.beam:beam-runners-direct-java'
+    testImplementation 'com.google.cloud:google-cloud-nio'
+}
+
+/*
+ * Execute the specified main class with JavaExecTask and additional execution arguments
+ */
+tasks.register('execute', JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask and additional arguments"
+
+    mainClass = System.getProperty("mainClass")
+    classpath = sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
+    args System.getProperty("exec.args") != null ? System.getProperty("exec.args").split() : ""
 }
