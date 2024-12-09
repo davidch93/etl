@@ -25,12 +25,16 @@ public class SchemaLoaderTest {
         assertThat(table.getName()).isEqualTo("github_staging_orders");
         assertThat(table.getSource()).isEqualTo(Source.MYSQL);
         assertThat(table.getConstraintKeys()).isNotEmpty().containsExactly("id");
-        assertThat(table.getTablePartition()).isNotNull()
-            .hasFieldOrPropertyWithValue("sourceColumn", "created_at")
-            .hasFieldOrPropertyWithValue("partitionColumn", "order_timestamp")
-            .hasFieldOrPropertyWithValue("partitionType", "DAY")
-            .hasFieldOrPropertyWithValue("partitionFilterRequired", false);
         assertThat(table.getClusteredColumns()).isNotEmpty().containsExactly("id");
+
+        // Assert table partition
+        TablePartition tablePartition = table.getTablePartition();
+        assertThat(tablePartition.getSourceColumn()).isEqualTo("created_at");
+        assertThat(tablePartition.getPartitionColumn()).isEqualTo("order_timestamp");
+        assertThat(tablePartition.getPartitionType()).isEqualTo("DAY");
+        assertThat(tablePartition.isPartitionFilterRequired()).isFalse();
+        assertThat(tablePartition.getDescription())
+            .isEqualTo("A partition column indicating the date of the order was created");
 
         // Assert TableSchema
         TableSchema schema = table.getSchema();

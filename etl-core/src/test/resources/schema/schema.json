@@ -79,7 +79,8 @@
     "source_column": "created_at",
     "partition_column": "order_timestamp",
     "partition_type": "DAY",
-    "partition_filter_required": false
+    "partition_filter_required": false,
+    "doc": "A partition column indicating the date of the order was created"
   },
   "clustered_columns": [
     "id"

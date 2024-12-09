@@ -29,7 +29,7 @@ public class TableSchema implements Serializable {
     private String name;
 
     @JsonProperty(value = "doc")
-    private String description;
+    private String description = "";
 
     @JsonProperty(value = "fields", required = true)
     private List<Field> fields;
