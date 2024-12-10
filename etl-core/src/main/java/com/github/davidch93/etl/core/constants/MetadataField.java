@@ -1,7 +1,5 @@
 package com.github.davidch93.etl.core.constants;
 
-import java.util.List;
-
 /**
  * A class containing constants for metadata column names used in various ETL operations.
  *
@@ -31,8 +29,12 @@ public final class MetadataField {
 
     // Debezium
     public static final String PAYLOAD = "payload";
+    public static final String PAYLOAD_ID = "id";
     public static final String PAYLOAD_OP = "op";
-    public static final String PAYLOAD_TS_MS = "ts_ms";
+    public static final String PAYLOAD_OP_R = "r";
+    public static final String PAYLOAD_OP_C = "c";
+    public static final String PAYLOAD_OP_U = "u";
+    public static final String PAYLOAD_OP_D = "d";
     public static final String PAYLOAD_BEFORE = "before";
     public static final String PAYLOAD_AFTER = "after";
     public static final String PAYLOAD_PATCH = "patch";

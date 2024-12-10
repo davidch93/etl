@@ -91,4 +91,33 @@ public final class DateTimeUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return zonedDateTime.format(formatter);
     }
+
+    /**
+     * Formats a given epoch timestamp (in milliseconds) into a formatted date-time string
+     * in UTC with the specified format.
+     *
+     * @param epochMillis the epoch timestamp in milliseconds
+     * @param format      the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
+     * @return the formatted date-time string
+     * @throws NullPointerException if {@code format} is null
+     */
+    public static String formatEpochMillis(long epochMillis, String format) {
+        Instant instant = Instant.ofEpochMilli(epochMillis);
+        return formatInstant(instant, format);
+    }
+
+    /**
+     * Formats a given epoch timestamp (in milliseconds) into a formatted date-time string
+     * in the specified time zone and format.
+     *
+     * @param epochMillis the epoch timestamp in milliseconds
+     * @param format      the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
+     * @param zoneId      the time zone to consider
+     * @return the formatted date-time string
+     * @throws NullPointerException if {@code format} or {@code zoneId} is null
+     */
+    public static String formatEpochMillis(long epochMillis, String format, ZoneId zoneId) {
+        Instant instant = Instant.ofEpochMilli(epochMillis);
+        return formatInstant(instant, format, zoneId);
+    }
 }

@@ -90,4 +90,21 @@ class DateTimeUtilsTest {
             .isInstanceOf(NullPointerException.class)
             .hasMessage("ZoneId cannot be null!");
     }
+
+    @Test
+    void testFormatEpochMillis_withDefaultZone() {
+        long epochMillis = 1733056496000L; // 2024-12-01T12:34:56 UTC
+        String format = "yyyy-MM-dd HH:mm:ss";
+        String result = DateTimeUtils.formatEpochMillis(epochMillis, format);
+        assertThat(result).isEqualTo("2024-12-01 12:34:56");
+    }
+
+    @Test
+    void testFormatEpochMillis_withCustomZone() {
+        long epochMillis = 1733056496000L; // 2024-12-01T12:34:56 UTC
+        String format = "yyyy-MM-dd HH:mm:ss";
+        ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+        String result = DateTimeUtils.formatEpochMillis(epochMillis, format, zoneId);
+        assertThat(result).isEqualTo("2024-12-01 19:34:56");
+    }
 }
