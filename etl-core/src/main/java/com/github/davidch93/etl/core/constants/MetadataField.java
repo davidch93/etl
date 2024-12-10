@@ -61,6 +61,7 @@ public final class MetadataField {
     public static final String ORD = "_ord";
     public static final String LSN = "_lsn";
     public static final String AUDIT_WRITE_TIME = "_audit_write_time";
+    public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss z";
 
     // ETL Job History
     public static final String BQ_TABLE_NAME = "bq_table_name";

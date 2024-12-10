@@ -60,33 +60,33 @@ public final class DateTimeUtils {
     }
 
     /**
-     * Formats a given epoch timestamp (in milliseconds) into a formatted date-time string
+     * Formats a given {@link Instant} into a formatted date-time string
      * in UTC with the specified format.
      *
-     * @param epochMillis the epoch timestamp in milliseconds
-     * @param format      the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
+     * @param instant the {@link Instant} to format
+     * @param format  the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
      * @return the formatted date-time string
-     * @throws NullPointerException if {@code format} is null
+     * @throws NullPointerException if {@code instant} or {@code format} is null
      */
-    public static String formatEpochMillis(long epochMillis, String format) {
-        return formatEpochMillis(epochMillis, format, ZoneId.of("UTC"));
+    public static String formatInstant(Instant instant, String format) {
+        return formatInstant(instant, format, ZoneId.of("UTC"));
     }
 
     /**
-     * Formats a given epoch timestamp (in milliseconds) into a formatted date-time string
+     * Formats a given {@link Instant} into a formatted date-time string
      * in the specified time zone and format.
      *
-     * @param epochMillis the epoch timestamp in milliseconds
-     * @param format      the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
-     * @param zoneId      the time zone to consider
+     * @param instant the {@link Instant} to format
+     * @param format  the desired date-time format (e.g., "yyyy-MM-dd HH:mm:ss")
+     * @param zoneId  the time zone to consider
      * @return the formatted date-time string
-     * @throws NullPointerException if {@code format} or {@code zoneId} is null
+     * @throws NullPointerException if {@code instant}, {@code format}, or {@code zoneId} is null
      */
-    public static String formatEpochMillis(long epochMillis, String format, ZoneId zoneId) {
+    public static String formatInstant(Instant instant, String format, ZoneId zoneId) {
+        Objects.requireNonNull(instant, "Instant cannot be null!");
         Objects.requireNonNull(format, "Format cannot be null!");
         Objects.requireNonNull(zoneId, "ZoneId cannot be null!");
 
-        Instant instant = Instant.ofEpochMilli(epochMillis);
         ZonedDateTime zonedDateTime = instant.atZone(zoneId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return zonedDateTime.format(formatter);

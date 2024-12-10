@@ -2,6 +2,7 @@ package com.github.davidch93.etl.core.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -29,6 +30,7 @@ class DateTimeUtilsTest {
     void testGetStartOfDay_withValidInput() {
         String input = "2024-12-01T12:34:56";
         ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+
         ZonedDateTime startOfDay = DateTimeUtils.getStartOfDay(input, zoneId);
         assertThat(startOfDay.toString()).isEqualTo("2024-12-01T00:00+07:00[Asia/Jakarta]");
     }
@@ -41,33 +43,51 @@ class DateTimeUtilsTest {
     }
 
     @Test
-    void testFormatEpochMillis_withDefaultZone() {
-        long epochMillis = 1733056496000L; // 2024-12-01T12:34:56 UTC
+    void testFormatInstant_withDefaultZone() {
+        Instant instant = Instant.parse("2024-12-10T12:34:56Z");
         String format = "yyyy-MM-dd HH:mm:ss";
-        String result = DateTimeUtils.formatEpochMillis(epochMillis, format);
-        assertThat(result).isEqualTo("2024-12-01 12:34:56");
+
+        String result = DateTimeUtils.formatInstant(instant, format);
+        assertThat(result).isEqualTo("2024-12-10 12:34:56");
     }
 
     @Test
-    void testFormatEpochMillis_withCustomZone() {
-        long epochMillis = 1733056496000L; // 2024-12-01T12:34:56 UTC
+    void testFormatInstant_withCustomZone() {
+        Instant instant = Instant.parse("2024-12-10T12:34:56Z");
         String format = "yyyy-MM-dd HH:mm:ss";
         ZoneId zoneId = ZoneId.of("Asia/Jakarta");
-        String result = DateTimeUtils.formatEpochMillis(epochMillis, format, zoneId);
-        assertThat(result).isEqualTo("2024-12-01 19:34:56");
+
+        String result = DateTimeUtils.formatInstant(instant, format, zoneId);
+        assertThat(result).isEqualTo("2024-12-10 19:34:56");
     }
 
     @Test
-    void testFormatEpochMillis_withNullFormat_expectThrowsException() {
-        assertThatThrownBy(() -> DateTimeUtils.formatEpochMillis(1704065696000L, null, ZoneId.of("UTC")))
+    void testFormatInstant_withNullInstant_expectThrowsException() {
+        String format = "yyyy-MM-dd HH:mm:ss";
+        ZoneId zoneId = ZoneId.of("UTC");
+
+        assertThatThrownBy(() -> DateTimeUtils.formatInstant(null, format, zoneId))
             .isInstanceOf(NullPointerException.class)
-            .hasMessageContaining("Format cannot be null!");
+            .hasMessage("Instant cannot be null!");
     }
 
     @Test
-    void testFormatEpochMillis_withNullZoneId_expectThrowsException() {
-        assertThatThrownBy(() -> DateTimeUtils.formatEpochMillis(1704065696000L, "yyyy-MM-dd", null))
+    void testFormatInstant_withNullFormat_expectThrowsException() {
+        Instant instant = Instant.now();
+        ZoneId zoneId = ZoneId.of("UTC");
+
+        assertThatThrownBy(() -> DateTimeUtils.formatInstant(instant, null, zoneId))
             .isInstanceOf(NullPointerException.class)
-            .hasMessageContaining("ZoneId cannot be null!");
+            .hasMessage("Format cannot be null!");
+    }
+
+    @Test
+    void testFormatInstant_withNullZoneId_expectThrowsException() {
+        Instant instant = Instant.now();
+        String format = "yyyy-MM-dd HH:mm:ss";
+
+        assertThatThrownBy(() -> DateTimeUtils.formatInstant(instant, format, null))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("ZoneId cannot be null!");
     }
 }
