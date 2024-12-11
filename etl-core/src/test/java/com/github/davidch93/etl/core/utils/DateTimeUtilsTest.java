@@ -27,19 +27,21 @@ class DateTimeUtilsTest {
     }
 
     @Test
-    void testGetStartOfDay_withValidInput() {
-        String input = "2024-12-01T12:34:56";
-        ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+    void testGetStartOfCurrentDay_withValidInput() {
+        ZoneId zoneId = ZoneId.of("UTC");
+        ZonedDateTime startOfDay = DateTimeUtils.getStartOfCurrentDay(zoneId);
 
-        ZonedDateTime startOfDay = DateTimeUtils.getStartOfDay(input, zoneId);
-        assertThat(startOfDay.toString()).isEqualTo("2024-12-01T00:00+07:00[Asia/Jakarta]");
+        ZonedDateTime expected = ZonedDateTime.now(zoneId)
+            .toLocalDate()
+            .atStartOfDay(zoneId);
+        assertThat(startOfDay).isEqualTo(expected);
     }
 
     @Test
-    void testGetStartOfDay_withNullZoneId_expectThrowsException() {
-        assertThatThrownBy(() -> DateTimeUtils.getStartOfDay("2024-12-01T12:34:56", null))
+    void testGetStartOfCurrentDay_withNullZoneId_expectThrowsException() {
+        assertThatThrownBy(() -> DateTimeUtils.getStartOfCurrentDay(null))
             .isInstanceOf(NullPointerException.class)
-            .hasMessageContaining("ZoneId cannot be null!");
+            .hasMessage("Time zone cannot be null!");
     }
 
     @Test
