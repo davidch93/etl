@@ -243,19 +243,20 @@ public class BigQueryHelperTest {
             CREATE OR REPLACE VIEW `github-staging.bronze_real_time_mongodb.github_staging_transactions` AS (
             WITH
               union_stream AS (
-                SELECT `_id`, `user_id`, `order_id`, `notes`, `created_at`, `updated_at`, `_is_deleted`, `_ts_partition`, `_ord`
+                SELECT `_id`, `user_id`, `order_id`, `fee`, `notes`, `created_at`, `updated_at`, `_is_deleted`, `_ts_partition`, `_ord`
                 FROM `github-staging.bronze_stream_mongodb.github_staging_transactions`
                 UNION ALL
-                SELECT `_id`, `user_id`, `order_id`, `notes`, `created_at`, `updated_at`, `_is_deleted`, '1970-01-01' AS `_ts_partition`, 0 AS `_ord`
+                SELECT `_id`, `user_id`, `order_id`, `fee`, `notes`, `created_at`, `updated_at`, `_is_deleted`, '1970-01-01' AS `_ts_partition`, 0 AS `_ord`
                 FROM `github-staging.bronze_daily_mongodb.github_staging_transactions`
                 WHERE `_id`, `user_id`, `order_id` IN (SELECT `_id`, `user_id`, `order_id` FROM `github-staging.bronze_stream_mongodb.github_staging_transactions`)),
               distinct_stream AS (
-                SELECT `_id`, `user_id`, `order_id`, ARRAY_AGG(`notes` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `notes`,
+                SELECT `_id`, `user_id`, `order_id`, ARRAY_AGG(`fee` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `fee`,
+            ARRAY_AGG(`notes` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `notes`,
             ARRAY_AGG(`created_at` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `created_at`,
             ARRAY_AGG(`updated_at` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `updated_at`,
             ARRAY_AGG(`_is_deleted` IGNORE NULLS ORDER BY `_ts_partition` DESC, `_ord` DESC LIMIT 1)[OFFSET(0)] AS `_is_deleted` FROM union_stream GROUP BY 1),
               daily AS (
-                SELECT `_id`, `user_id`, `order_id`, `notes`, `created_at`, `updated_at`, `_is_deleted`
+                SELECT `_id`, `user_id`, `order_id`, `fee`, `notes`, `created_at`, `updated_at`, `_is_deleted`
                 FROM `github-staging.bronze_daily_mongodb.github_staging_transactions`
                 WHERE `_id`, `user_id`, `order_id` NOT IN (
                   SELECT `_id`, `user_id`, `order_id` FROM distinct_stream))

@@ -31,6 +31,12 @@
         "doc": "The id corresponding to the order table"
       },
       {
+        "name": "fee",
+        "type": "DOUBLE",
+        "nullable": true,
+        "doc": "The transaction fee"
+      },
+      {
         "name": "notes",
         "type": "STRING",
         "nullable": true,

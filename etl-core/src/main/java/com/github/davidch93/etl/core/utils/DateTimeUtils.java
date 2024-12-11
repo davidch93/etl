@@ -46,17 +46,22 @@ public final class DateTimeUtils {
     }
 
     /**
-     * Calculates the start of the day for the given date-time string in the specified time zone.
+     * Retrieves the start of the current day for the specified time zone.
+     * <p>
+     * This method calculates the start of the day (00:00:00) based on the
+     * provided {@link ZoneId}. It ensures the time zone is not null and
+     * returns a {@link ZonedDateTime} representing the beginning of the current day.
+     * </p>
      *
-     * @param isoDateTimeString the ISO 8601 date-time string
-     * @param zoneId            the time zone to consider
-     * @return the start of the day as a {@link ZonedDateTime}
-     * @throws NullPointerException if {@code isoDateTimeString} or {@code zoneId} is null
+     * @param timeZone the {@link ZoneId} representing the time zone for which to compute the start of the day.
+     * @return a {@link ZonedDateTime} representing the start of the current day (00:00:00) in the specified time zone.
+     * @throws NullPointerException if {@code timeZone} is {@code null}.
      */
-    public static ZonedDateTime getStartOfDay(String isoDateTimeString, ZoneId zoneId) {
-        Objects.requireNonNull(zoneId, "ZoneId cannot be null!");
-        LocalDateTime localDateTime = parseIsoLocalDateTime(isoDateTimeString);
-        return localDateTime.toLocalDate().atStartOfDay(zoneId);
+    public static ZonedDateTime getStartOfCurrentDay(ZoneId timeZone) {
+        Objects.requireNonNull(timeZone, "Time zone cannot be null!");
+        return ZonedDateTime.now(timeZone)
+            .toLocalDate()
+            .atStartOfDay(timeZone);
     }
 
     /**

@@ -49,6 +49,7 @@ dependencies {
 
         // Testing dependencies
         api "org.junit.jupiter:junit-jupiter:$junitVersion"
+        api "org.junit.vintage:junit-vintage-engine:$junitVersion"
         api "org.assertj:assertj-core:$assertJVersion"
         api "org.mockito:mockito-core:$mockitoVersion"
         api "com.google.cloud:google-cloud-nio:$beamGoogleCloudNioVersion"

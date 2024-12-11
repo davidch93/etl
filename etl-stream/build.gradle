@@ -8,6 +8,8 @@ dependencies {
     implementation 'org.apache.beam:beam-runners-google-cloud-dataflow-java'
     implementation 'org.apache.beam:beam-sdks-java-io-kafka'
     runtimeOnly 'org.apache.beam:beam-runners-direct-java'
+
+    testImplementation 'org.junit.vintage:junit-vintage-engine'
     testImplementation 'com.google.cloud:google-cloud-nio'
 }
 
