@@ -290,7 +290,7 @@ public class BigQueryHelperTest {
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         assertThatThrownBy(() -> bigQueryHelper.prepareStreamTablesAndRealTimeViews(List.of(table)))
-            .isInstanceOf(RuntimeException.class)
+            .isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("Unsupported source type for `DYNAMODB`!");
     }
 }
