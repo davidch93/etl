@@ -86,7 +86,7 @@ public class BigQueryHelper {
      * @param tables the list of tables to process.
      * @throws RuntimeException If an error occurs while preparing the stream tables and real-time views.
      */
-    public void prepareStreamTablesAndRealTimeViews(List<Table> tables) {
+    public void prepareStreamTablesAndRealTimeViews(Collection<Table> tables) {
         tables.forEach(table -> {
             com.google.api.services.bigquery.model.Table currentStreamTable = getStreamTable(table);
             TableSchema streamSchema = buildTableSchema(DatasetType.STREAM, table);
@@ -175,14 +175,14 @@ public class BigQueryHelper {
      *
      * @param source the {@link Source} system of the table (e.g., MYSQL, POSTGRESQL, MONGODB).
      * @return a {@link List} of {@link TableFieldSchema} objects representing the metadata fields.
-     * @throws RuntimeException if the source type is unsupported.
+     * @throws IllegalArgumentException if the source type is unsupported.
      */
     private List<TableFieldSchema> getMetadataFieldsForSource(Source source) {
         return switch (source) {
             case MYSQL -> Query.MYSQL_METADATA_FIELDS;
             case POSTGRESQL -> Query.POSTGRESQL_METADATA_FIELDS;
             case MONGODB -> Query.MONGODB_METADATA_FIELDS;
-            default -> throw new RuntimeException("Unsupported source type for `" + source + "`!");
+            default -> throw new IllegalArgumentException("Unsupported source type for `" + source + "`!");
         };
     }
 

@@ -47,7 +47,7 @@ public class RowTest {
         JsonNode jsonNode = JsonUtils.toJsonNode(jsonString);
 
         assertThatThrownBy(() -> Row.convert(jsonNode, FieldType.DECIMAL))
-            .isInstanceOf(RuntimeException.class)
+            .isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("Unsupported field type was found: `DECIMAL`!");
     }
 

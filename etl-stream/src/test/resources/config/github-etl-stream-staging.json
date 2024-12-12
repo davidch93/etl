@@ -1,0 +1,21 @@
+{
+  "config_bucket": "gs://github-config-staging",
+  "kafka_config" : {
+    "bootstrap_servers": "localhost:9092",
+    "group_id": "etl.staging",
+    "default_offset": "earliest"
+  },
+  "bigquery_config": {
+    "project_id": "github-staging",
+    "region": "asia-southeast1",
+    "create_disposition": "CREATE_IF_NEEDED",
+    "prefix_dataset_id": "bronze",
+    "partition_expiry_millis": 172800000,
+    "temporary_gcs_bucket": "gs://dataproc-temp-staging"
+  },
+  "table_whitelist": [
+    "mysqlstaging.github_staging.orders",
+    "postgresqlstaging.github_staging.users",
+    "mongodbstaging.github_staging.transactions"
+  ]
+}
