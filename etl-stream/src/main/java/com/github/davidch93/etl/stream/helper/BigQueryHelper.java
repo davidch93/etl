@@ -376,7 +376,7 @@ public class BigQueryHelper {
      */
     private String constructDatasetId(DatasetType datasetType, Source source) {
         return "%s_%s_%s".formatted(
-            bigQueryConfig.getPrefixDatasetId(),
+            bigQueryConfig.getDatasetId(),
             datasetType.toString().toLowerCase(),
             source.toString().toLowerCase()
         );

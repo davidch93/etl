@@ -73,6 +73,6 @@ public class TableDescriptor implements SerializableFunction<ValueInSingleWindow
      * @return the constructed dataset ID as a {@link String}.
      */
     private String constructDatasetId(String source) {
-        return "%s_stream_%s".formatted(bigQueryConfig.getPrefixDatasetId(), source.toLowerCase());
+        return "%s_stream_%s".formatted(bigQueryConfig.getDatasetId(), source.toLowerCase());
     }
 }

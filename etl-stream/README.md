@@ -52,8 +52,8 @@ with the following structure.
   "bigquery_config": {
     "project_id": "<your-project-id>",
     "region": "<your-region-id>",
+    "dataset_id": "<your-prefix-dataset>",
     "create_disposition": "CREATE_IF_NEEDED/CREATE_NEVER",
-    "prefix_dataset_id": "<your-prefix-dataset>",
     "partition_expiry_millis": 172800000,
     "temporary_gcs_bucket": "<your-temp-bucket-staging>"
   },

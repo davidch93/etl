@@ -8,8 +8,8 @@
   "bigquery_config": {
     "project_id": "github-staging",
     "region": "asia-southeast1",
+    "dataset_id": "bronze",
     "create_disposition": "CREATE_IF_NEEDED",
-    "prefix_dataset_id": "bronze",
     "partition_expiry_millis": 172800000,
     "temporary_gcs_bucket": "gs://dataproc-temp-staging"
   },

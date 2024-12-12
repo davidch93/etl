@@ -31,11 +31,11 @@ public class BigQueryConfig implements Serializable {
     @JsonProperty(value = "region", required = true)
     private String region;
 
+    @JsonProperty(value = "dataset_id", required = true)
+    private String datasetId;
+
     @JsonProperty(value = "create_disposition", required = true)
     private String createDisposition;
-
-    @JsonProperty(value = "prefix_dataset_id", required = true)
-    private String prefixDatasetId;
 
     @JsonProperty(value = "partition_expiry_millis")
     private Long partitionExpiryMillis;
@@ -80,6 +80,26 @@ public class BigQueryConfig implements Serializable {
     }
 
     /**
+     * Gets the dataset ID of BigQuery.
+     * <p><strong>Note:</strong> It also could be a prefix of the dataset ID.</p>
+     *
+     * @return The dataset ID of BigQuery.
+     */
+    public String getDatasetId() {
+        return datasetId;
+    }
+
+    /**
+     * Sets the dataset ID of BigQuery.
+     * <p><strong>Note:</strong> It also could be a prefix of the dataset ID.</p>
+     *
+     * @param datasetId The dataset ID of BigQuery.
+     */
+    public void setDatasetId(String datasetId) {
+        this.datasetId = datasetId;
+    }
+
+    /**
      * Gets the table creation disposition for BigQuery operations.
      * <p>
      * This property defines how tables are created during write operations, such as
@@ -99,24 +119,6 @@ public class BigQueryConfig implements Serializable {
      */
     public void setCreateDisposition(String createDisposition) {
         this.createDisposition = createDisposition;
-    }
-
-    /**
-     * Gets the prefix used for dataset IDs in BigQuery.
-     *
-     * @return The prefix for dataset IDs.
-     */
-    public String getPrefixDatasetId() {
-        return prefixDatasetId;
-    }
-
-    /**
-     * Sets the prefix used for dataset IDs in BigQuery.
-     *
-     * @param prefixDatasetId The prefix for dataset IDs.
-     */
-    public void setPrefixDatasetId(String prefixDatasetId) {
-        this.prefixDatasetId = prefixDatasetId;
     }
 
     /**
