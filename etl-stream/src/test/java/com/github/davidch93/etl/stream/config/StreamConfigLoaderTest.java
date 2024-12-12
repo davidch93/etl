@@ -57,8 +57,8 @@ public class StreamConfigLoaderTest {
         assertThat(bigQueryConfig).isNotNull();
         assertThat(bigQueryConfig.getProjectId()).isEqualTo("github-staging");
         assertThat(bigQueryConfig.getRegion()).isEqualTo("asia-southeast1");
+        assertThat(bigQueryConfig.getDatasetId()).isEqualTo("bronze");
         assertThat(bigQueryConfig.getCreateDisposition()).isEqualTo("CREATE_IF_NEEDED");
-        assertThat(bigQueryConfig.getPrefixDatasetId()).isEqualTo("bronze");
         assertThat(bigQueryConfig.getPartitionExpiryMillis()).isEqualTo(172800000L);
         assertThat(bigQueryConfig.getTemporaryGcsBucket()).isEqualTo("gs://dataproc-temp-staging");
     }

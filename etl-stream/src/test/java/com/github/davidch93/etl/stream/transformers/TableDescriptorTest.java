@@ -61,8 +61,8 @@ public class TableDescriptorTest {
         bigQueryConfig = new BigQueryConfig();
         bigQueryConfig.setProjectId(PROJECT_ID);
         bigQueryConfig.setRegion(REGION);
+        bigQueryConfig.setDatasetId("bronze");
         bigQueryConfig.setCreateDisposition("CREATE_IF_NEEDED");
-        bigQueryConfig.setPrefixDatasetId("bronze");
         bigQueryConfig.setPartitionExpiryMillis(172800000L);
         bigQueryConfig.setTemporaryGcsBucket(FileSystems.getDefault().getPath("").toAbsolutePath() + "/build/tmp");
 
