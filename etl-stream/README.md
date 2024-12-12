@@ -5,6 +5,11 @@ focused on streaming data transformations and processing for real-time systems.
 It integrates with Apache Beam and BigQuery to provide a robust framework for handling high-volume data streams.
 
 ## Table of Contents
+- [Requirements](#requirements)
+- [Features](#features)
+- [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Submit Job](#submit-a-job-to-google-cloud-dataflow)
 
 ## Requirements
 
