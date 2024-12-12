@@ -4,20 +4,19 @@ package com.github.davidch93.etl.core.constants;
  * A class containing constants for metadata column names used in various ETL operations.
  *
  * <p>
- * This class organizes metadata column names by context, including Kafka, Debezium, ETL-specific,
- * and ETL job history. These constants provide a standardized way to reference metadata columns
- * in the ETL pipeline and related processes.
+ * This class organizes metadata field names by context, including Kafka, Debezium, and ETL-specific fields.
+ * These constants provide a standardized way to reference metadata fields in the ETL pipeline and related processes.
  * </p>
  *
  * <h2>Contexts:</h2>
  * <ul>
  *     <li><strong>Kafka:</strong> Metadata related to Kafka records.</li>
- *     <li><strong>Debezium:</strong> Metadata columns produced by Debezium for CDC (Change Data Capture).</li>
+ *     <li><strong>Debezium:</strong> Metadata fields produced by Debezium for CDC (Change Data Capture).</li>
  *     <li><strong>ETL:</strong> Metadata added or used by ETL operations.</li>
- *     <li><strong>ETL Job History:</strong> Metadata for tracking the status and details of ETL jobs.</li>
  * </ul>
  *
- * <p><strong>Note:</strong> This class is immutable and all fields are declared as {@code static final} for ease of use.</p>
+ * <p><strong>Note:</strong>
+ * This class is immutable and all fields are declared as {@code static final} for ease of use.</p>
  *
  * @author david.christianto
  */
@@ -64,14 +63,4 @@ public final class MetadataField {
     public static final String LSN = "_lsn";
     public static final String AUDIT_WRITE_TIME = "_audit_write_time";
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss z";
-
-    // ETL Job History
-    public static final String BQ_TABLE_NAME = "bq_table_name";
-    public static final String GROUP_NAME = "group_name";
-    public static final String SCHEDULED_TIMESTAMP = "scheduled_timestamp";
-    public static final String START_TIMESTAMP = "start_timestamp";
-    public static final String END_TIMESTAMP = "end_timestamp";
-    public static final String DURATION_SECONDS = "duration_seconds";
-    public static final String IS_SUCCESS = "is_success";
-    public static final String MESSAGE = "message";
 }
