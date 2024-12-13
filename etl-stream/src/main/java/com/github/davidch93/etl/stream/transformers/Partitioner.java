@@ -8,15 +8,15 @@ import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.metrics.Counter;
 import org.apache.beam.sdk.metrics.Metrics;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.ZoneId;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.github.davidch93.etl.core.constants.MetadataField.*;
-
 
 /**
  * A Beam {@link DoFn} implementation to partition {@code TableRow} records based on specified criteria.
@@ -98,12 +98,19 @@ public class Partitioner extends DoFn<TableRow, TableRow> {
 
     /**
      * Checks if the source timestamp is older than the configured partition expiry time.
+     * <p>
+     * This method utilizes {@link org.joda.time.DateTimeUtils#setCurrentMillisFixed(long)}
+     * to allow setting a fixed point in time for testing purposes. By relying on
+     * {@link org.joda.time.DateTimeUtils#currentTimeMillis()}, the method ensures that
+     * the timestamp reflects the mocked or fixed current time, making it ideal for
+     * deterministic and reproducible tests.
+     * </p>
      *
      * @param timestampMillis the source timestamp in milliseconds.
      * @return {@code true} if the source timestamp is older than the partition expiry time, otherwise {@code false}.
      */
     private boolean isOlderThanPartitionExpiry(long timestampMillis) {
-        long currentStartOfDay = DateTimeUtils.getStartOfCurrentDay(ZoneId.of("UTC")).toInstant().toEpochMilli();
+        long currentStartOfDay = DateTime.now(DateTimeZone.UTC).withTimeAtStartOfDay().getMillis();
         return timestampMillis <= currentStartOfDay - bigQueryConfig.getPartitionExpiryMillis();
     }
 
