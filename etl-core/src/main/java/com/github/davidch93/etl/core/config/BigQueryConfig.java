@@ -35,7 +35,7 @@ public class BigQueryConfig implements Serializable {
     @JsonProperty(value = "dataset_id", required = true)
     private String datasetId;
 
-    @JsonProperty(value = "create_disposition", required = true)
+    @JsonProperty(value = "create_disposition")
     private String createDisposition;
 
     @JsonProperty(value = "partition_expiry_millis")
