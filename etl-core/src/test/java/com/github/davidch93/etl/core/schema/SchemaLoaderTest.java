@@ -3,8 +3,10 @@ package com.github.davidch93.etl.core.schema;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static com.github.davidch93.etl.core.schema.Field.FieldType;
@@ -118,8 +120,8 @@ public class SchemaLoaderTest {
 
     @Test
     void testLoadTableSchema_withMalformedJson() throws IOException {
-        Path malformedPath = Path.of("src/test/resources/schema/malformed-schema.json");
-        Files.writeString(malformedPath, "{table_name: github_staging_orders, schema:}");
+        Path malformedPath = Paths.get("src/test/resources/schema/malformed-schema.json");
+        Files.write(malformedPath, "{table_name: github_staging_orders, schema:}".getBytes(StandardCharsets.UTF_8));
 
         try {
             assertThatThrownBy(() -> SchemaLoader.loadTableSchema(malformedPath.toString()))

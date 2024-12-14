@@ -15,7 +15,7 @@ subprojects {
     plugins.withId('java-library') {
         java {
             toolchain {
-                languageVersion = JavaLanguageVersion.of(17)
+                languageVersion = JavaLanguageVersion.of(8)
             }
         }
 
@@ -26,8 +26,6 @@ subprojects {
         dependencies {
             implementation platform(project(':etl-bom'))
             testImplementation 'org.junit.jupiter:junit-jupiter'
-            testImplementation 'org.assertj:assertj-core'
-            testImplementation 'org.mockito:mockito-core'
         }
     }
 }

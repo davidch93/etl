@@ -17,7 +17,7 @@ for building robust data processing pipelines.
 
 ## Requirements
 
-- **Java Version**: 17 or higher
+- **Java Version**: 8 or higher
 - **Build Tool**: Maven or Gradle
 - SMTP server credentials for email notifications.
 

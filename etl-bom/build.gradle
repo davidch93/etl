@@ -7,20 +7,23 @@ javaPlatform {
 }
 
 ext {
-    scalaVersion = '2.13'
+    scalaVersion = '2.12'
+    scalaLibVersion = '2.12.20'
+    scalaTestVersion = '3.2.19'
+    scalaTestPlusVersion = '3.2.19.0'
+    scalaMockitoVersion = '1.17.37'
+
     sparkVersion = '3.5.3'
-    sparkBigQueryVersion = '0.41.0'
     deequVersion = '2.0.8-spark-3.5'
 
     beamVersion = '2.61.0'
-    beamGoogleCloudNioVersion = '0.127.27'
+    beamGoogleCloudNioVersion = '0.127.28'
 
     jcommanderVersion = '2.0'
     jakartaMailVersion = '2.0.1'
 
     junitVersion = '5.11.3'
     assertJVersion = '3.26.3'
-    mockitoVersion = '5.14.2'
 }
 
 dependencies {
@@ -31,17 +34,20 @@ dependencies {
         api project(":etl-stream")
         api project(":etl-sentry")
 
+        // Scala dependencies
+        api "org.scala-lang:scala-library:$scalaLibVersion"
+
         // Spark dependencies
         api "org.apache.spark:spark-core_$scalaVersion:$sparkVersion"
         api "org.apache.spark:spark-sql_$scalaVersion:$sparkVersion"
         api "org.apache.spark:spark-sql-kafka-0-10_$scalaVersion:$sparkVersion"
-        api "com.google.cloud.spark:spark-bigquery-with-dependencies_$scalaVersion:$sparkBigQueryVersion"
         api "com.amazon.deequ:deequ:$deequVersion"
 
         // Apache beam dependencies
         api "org.apache.beam:beam-runners-google-cloud-dataflow-java:$beamVersion"
         api "org.apache.beam:beam-sdks-java-io-kafka:$beamVersion"
         api "org.apache.beam:beam-runners-direct-java:$beamVersion"
+        api "com.google.cloud:google-cloud-nio:$beamGoogleCloudNioVersion"
 
         // Utility dependencies
         api "org.jcommander:jcommander:$jcommanderVersion"
@@ -51,7 +57,10 @@ dependencies {
         api "org.junit.jupiter:junit-jupiter:$junitVersion"
         api "org.junit.vintage:junit-vintage-engine:$junitVersion"
         api "org.assertj:assertj-core:$assertJVersion"
-        api "org.mockito:mockito-core:$mockitoVersion"
-        api "com.google.cloud:google-cloud-nio:$beamGoogleCloudNioVersion"
+
+        // Testing Scala dependencies
+        api "org.scalatest:scalatest_$scalaVersion:$scalaTestVersion"
+        api "org.scalatestplus:junit-5-11_$scalaVersion:$scalaTestPlusVersion"
+        api "org.mockito:mockito-scala_$scalaVersion:$scalaMockitoVersion"
     }
 }

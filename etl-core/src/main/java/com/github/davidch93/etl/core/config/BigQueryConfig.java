@@ -19,7 +19,8 @@ import java.io.Serializable;
  * writing data to BigQuery datasets.
  * </p>
  *
- * <p><strong>Note:</strong> This class is designed for use with Jackson for JSON serialization and deserialization.</p>
+ * <p><strong>Note:</strong>
+ * This class is designed for use with Jackson for JSON serialization and deserialization.</p>
  *
  * @author david.christianto
  */
