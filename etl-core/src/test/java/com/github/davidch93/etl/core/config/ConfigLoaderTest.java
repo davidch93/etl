@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -84,8 +86,8 @@ class ConfigLoaderTest {
 
     @Test
     void testLoadConfig_withMalformedJson() throws IOException {
-        Path malformedPath = Path.of("src/test/resources/config/malformed-config.json");
-        Files.writeString(malformedPath, "{group_name: non-financial, max_threads:}");
+        Path malformedPath = Paths.get("src/test/resources/config/malformed-config.json");
+        Files.write(malformedPath, "{group_name: non-financial, max_threads:}".getBytes(StandardCharsets.UTF_8));
 
         try {
             assertThatThrownBy(() -> TestConfigLoader.loadConfig(malformedPath.toString()))

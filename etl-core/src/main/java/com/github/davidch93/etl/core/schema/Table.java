@@ -3,6 +3,7 @@ package com.github.davidch93.etl.core.schema;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class Table implements Serializable {
     private TableSchema schema;
 
     @JsonProperty(value = "constraint_keys")
-    private List<String> constraintKeys = List.of("id");
+    private List<String> constraintKeys = Collections.singletonList("id");
 
     @JsonProperty(value = "table_partition")
     private TablePartition tablePartition;

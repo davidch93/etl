@@ -4,5 +4,6 @@ plugins {
 
 dependencies {
     api 'com.sun.mail:jakarta.mail'
-    implementation 'org.apache.spark:spark-core_2.13'
+    implementation 'org.apache.spark:spark-core_2.12'
+    testImplementation 'org.assertj:assertj-core'
 }

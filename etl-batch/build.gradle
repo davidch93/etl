@@ -1,12 +1,17 @@
 plugins {
+    id 'scala'
     id 'java-library'
 }
 
 dependencies {
     api project(":etl-core")
 
-    implementation 'org.apache.spark:spark-core_2.13'
-    implementation 'org.apache.spark:spark-sql_2.13'
-    implementation 'org.apache.spark:spark-sql-kafka-0-10_2.13'
-    implementation 'com.google.cloud.spark:spark-bigquery-with-dependencies_2.13'
+    compileOnly 'org.scala-lang:scala-library'
+    implementation 'org.apache.spark:spark-core_2.12'
+    implementation 'org.apache.spark:spark-sql_2.12'
+    implementation 'org.apache.spark:spark-sql-kafka-0-10_2.12'
+
+    testImplementation 'org.scalatest:scalatest_2.12'
+    testImplementation 'org.mockito:mockito-scala_2.12'
+    testRuntimeOnly 'org.scalatestplus:junit-5-11_2.12'
 }
