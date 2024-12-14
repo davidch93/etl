@@ -41,7 +41,7 @@ public abstract class ConfigLoader {
      * @return the deserialized configuration object.
      * @throws RuntimeException if an I/O error occurs while interacting with the file system or reading the file.
      */
-    protected static <T> T loadConfig(String configPath, Class<T> configClass) {
+    protected <T> T loadConfig(String configPath, Class<T> configClass) {
         logger.info("[ETL-CORE] Loading configuration from `{}`.", configPath);
 
         try {

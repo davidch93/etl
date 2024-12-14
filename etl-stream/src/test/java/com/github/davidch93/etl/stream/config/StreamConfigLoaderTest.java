@@ -60,7 +60,7 @@ public class StreamConfigLoaderTest {
         assertThat(bigQueryConfig.getDatasetId()).isEqualTo("bronze");
         assertThat(bigQueryConfig.getCreateDisposition()).isEqualTo("CREATE_IF_NEEDED");
         assertThat(bigQueryConfig.getPartitionExpiryMillis()).isEqualTo(172800000L);
-        assertThat(bigQueryConfig.getTemporaryGcsBucket()).isEqualTo("gs://dataproc-temp-staging");
+        assertThat(bigQueryConfig.getTemporaryGcsBucket()).isEqualTo("gs://dataflow-temp-staging");
     }
 
     @Test

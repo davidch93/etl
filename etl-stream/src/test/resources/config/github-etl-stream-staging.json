@@ -11,7 +11,7 @@
     "dataset_id": "bronze",
     "create_disposition": "CREATE_IF_NEEDED",
     "partition_expiry_millis": 172800000,
-    "temporary_gcs_bucket": "gs://dataproc-temp-staging"
+    "temporary_gcs_bucket": "gs://dataflow-temp-staging"
   },
   "table_whitelist": [
     "mysqlstaging.github_staging.orders",

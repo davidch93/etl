@@ -46,8 +46,12 @@ class ConfigLoaderTest {
 
     static class TestConfigLoader extends ConfigLoader {
 
-        public static TestConfig loadConfig(String configPath) {
+        public TestConfig fromConfigPath(String configPath) {
             return loadConfig(configPath, TestConfig.class);
+        }
+
+        public static TestConfig loadConfig(String configPath) {
+            return new TestConfigLoader().fromConfigPath(configPath);
         }
     }
 
