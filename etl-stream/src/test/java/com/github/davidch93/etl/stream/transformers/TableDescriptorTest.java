@@ -79,9 +79,9 @@ public class TableDescriptorTest {
     @Test
     void testTableDescriptor_withValidRows_thenExpectValidResults() throws IOException, InterruptedException {
         Map<String, Table> tablesByName = Stream.of(
-                "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json",
-                "src/test/resources/schema/postgresqlstaging/github_staging/users/schema.json",
-                "src/test/resources/schema/mongodbstaging/github_staging/transactions/schema.json")
+                "src/test/resources/schema/mysql/github_staging_orders/schema.json",
+                "src/test/resources/schema/postgresql/github_staging_users/schema.json",
+                "src/test/resources/schema/mongodb/github_staging_transactions/schema.json")
             .map(SchemaLoader::loadTableSchema)
             .collect(Collectors.toMap(Table::getName, Function.identity()));
 

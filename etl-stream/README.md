@@ -36,6 +36,14 @@ It integrates with Apache Beam and BigQuery to provide a robust framework for ha
 
 ## Usage
 
+### Unit Test
+
+To run unit tests, execute the following command.
+
+```shell
+./gradlew clean test
+```
+
 ### Configuration
 
 Configuration is managed through JSON files. Create a configuration file (e.g., config.json) and store it in GCS

@@ -45,9 +45,9 @@ public class PartitionerTest implements Serializable {
     @Test
     void testPartition_withValidPayload_thenExpectValidResults() {
         Map<String, Table> tablesByName = Stream.of(
-                "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json",
-                "src/test/resources/schema/postgresqlstaging/github_staging/users/schema.json",
-                "src/test/resources/schema/mongodbstaging/github_staging/transactions/schema.json")
+                "src/test/resources/schema/mysql/github_staging_orders/schema.json",
+                "src/test/resources/schema/postgresql/github_staging_users/schema.json",
+                "src/test/resources/schema/mongodb/github_staging_transactions/schema.json")
             .map(SchemaLoader::loadTableSchema)
             .collect(Collectors.toMap(Table::getName, Function.identity()));
 
@@ -91,7 +91,7 @@ public class PartitionerTest implements Serializable {
 
     @Test
     void testPartition_withExpiredPayload_thenExpectDataIsNotProcessed() {
-        String schemaFilePath = "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
         Map<String, Table> tablesByName = Map.of(table.getName(), table);
 
@@ -109,7 +109,7 @@ public class PartitionerTest implements Serializable {
 
     @Test
     void testPartition_whenErrorParsing_thenExpectDataIsNotProcessed() {
-        String schemaFilePath = "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
         Map<String, Table> tablesByName = Map.of(table.getName(), table);
 

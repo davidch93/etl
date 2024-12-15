@@ -25,7 +25,7 @@ public class SchemaHelperTest {
         Storage localStorage = LocalStorageHelper.getOptions().getService();
 
         String bucket = "test-bucket";
-        String schemaFilePath = "schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "schema/mysql/github_staging_orders/schema.json";
 
         Table table = SchemaLoader.loadTableSchema("src/test/resources/" + schemaFilePath);
         byte[] jsonBytes = new ObjectMapper().writeValueAsBytes(table);
@@ -134,6 +134,6 @@ public class SchemaHelperTest {
 
         assertThatThrownBy(() -> schemaHelper.loadTableSchema(topic))
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("File `gs://test-bucket/schema/mysqlstaging/github_staging/users/schema.json` is not found!");
+            .hasMessageContaining("File `gs://test-bucket/schema/mysql/github_staging_users/schema.json` is not found!");
     }
 }

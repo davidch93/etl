@@ -30,7 +30,7 @@ public class DataPoolStreamPostgreSqlTransformerTest {
     static void setup() {
         DateTimeUtils.setCurrentMillisFixed(WRITE_TIME);
 
-        String schemaFilePath = "src/test/resources/schema/postgresqlstaging/github_staging/users/schema.json";
+        String schemaFilePath = "src/test/resources/schema/postgresql/github_staging_users/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
         tablesByName = Map.of(table.getName(), table);
     }

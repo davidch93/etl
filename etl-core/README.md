@@ -44,7 +44,8 @@ for building robust data processing pipelines.
 
 ### Schema
 
-Define a table schema definition stored in Filesystem with the following structure.
+Define a table schema definition stored in Filesystem with the following structure. 
+The table schema config path must be stored in the format: `<your-config-bucket>/schema/<source-type>/<your-standard-table-name>/schema.json`
 
 ```json
 {
