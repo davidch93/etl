@@ -1,7 +1,8 @@
 package com.github.davidch93.etl.stream.transformers;
 
 import com.github.davidch93.etl.core.config.BigQueryConfig;
-import com.github.davidch93.etl.core.schema.Table;
+import com.github.davidch93.etl.core.constants.Dataset;
+import com.github.davidch93.etl.core.constants.Source;
 import com.google.api.services.bigquery.model.TableReference;
 import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.io.gcp.bigquery.TableDestination;
@@ -59,20 +60,12 @@ public class TableDescriptor implements SerializableFunction<ValueInSingleWindow
     @Override
     public TableDestination apply(ValueInSingleWindow<TableRow> input) {
         TableRow row = Objects.requireNonNull(Objects.requireNonNull(input).getValue());
+        Source source = Source.valueOf(row.get(SOURCE).toString());
         TableReference tableReference = new TableReference()
             .setProjectId(bigQueryConfig.getProjectId())
-            .setDatasetId(constructDatasetId(row.get(SOURCE).toString()))
+            .setDatasetId(bigQueryConfig.getDatasetId(Dataset.STREAM, source))
             .setTableId(row.get(TABLE_NAME).toString());
-        return new TableDestination(tableReference, "");
-    }
 
-    /**
-     * Constructs the stream dataset ID for a specific source system.
-     *
-     * @param source the {@link Table.Source} system of the dataset (e.g., MYSQL, POSTGRESQL, MONGODB).
-     * @return the constructed dataset ID as a {@link String}.
-     */
-    private String constructDatasetId(String source) {
-        return "%s_stream_%s".formatted(bigQueryConfig.getDatasetId(), source.toLowerCase());
+        return new TableDestination(tableReference, "");
     }
 }

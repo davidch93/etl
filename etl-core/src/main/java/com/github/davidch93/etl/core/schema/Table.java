@@ -1,6 +1,7 @@
 package com.github.davidch93.etl.core.schema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.davidch93.etl.core.constants.Source;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -33,27 +34,6 @@ import java.util.List;
  * @author david.christianto
  */
 public class Table implements Serializable {
-
-    /**
-     * Enumeration representing the supported types of source databases.
-     * <p>
-     * This enum is primarily used to categorize and identify the database
-     * systems supported by the ETL (Extract, Transform, Load) process.
-     * </p>
-     *
-     * <ul>
-     *     <li>{@link #MYSQL} - Represents a MySQL database.</li>
-     *     <li>{@link #POSTGRESQL} - Represents a PostgreSQL database.</li>
-     *     <li>{@link #MONGODB} - Represents a MongoDB database.</li>
-     *     <li>{@link #DYNAMODB} - Represents a DynamoDB database.</li>
-     * </ul>
-     */
-    public enum Source {
-        MYSQL,
-        POSTGRESQL,
-        MONGODB,
-        DYNAMODB
-    }
 
     @JsonProperty(value = "table_name", required = true)
     private String name;

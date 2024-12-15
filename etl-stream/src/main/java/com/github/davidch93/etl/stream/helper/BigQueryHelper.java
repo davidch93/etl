@@ -1,9 +1,10 @@
 package com.github.davidch93.etl.stream.helper;
 
 import com.github.davidch93.etl.core.config.BigQueryConfig;
+import com.github.davidch93.etl.core.constants.Dataset;
+import com.github.davidch93.etl.core.constants.Source;
 import com.github.davidch93.etl.core.schema.Field.FieldType;
 import com.github.davidch93.etl.core.schema.Table;
-import com.github.davidch93.etl.core.schema.Table.Source;
 import com.google.api.services.bigquery.model.*;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryOptions;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryServices;
@@ -33,15 +34,6 @@ import static com.github.davidch93.etl.core.constants.MetadataField.TS_PARTITION
  * @author david.christianto
  */
 public class BigQueryHelper {
-
-    /**
-     * Enumeration for dataset types.
-     */
-    public enum DatasetType {
-        DAILY,
-        STREAM,
-        REAL_TIME
-    }
 
     private static final Logger logger = LoggerFactory.getLogger(BigQueryHelper.class);
 
@@ -89,8 +81,8 @@ public class BigQueryHelper {
     public void prepareStreamTablesAndRealTimeViews(Collection<Table> tables) {
         tables.forEach(table -> {
             com.google.api.services.bigquery.model.Table currentStreamTable = getStreamTable(table);
-            TableSchema streamSchema = buildTableSchema(DatasetType.STREAM, table);
-            TableSchema realTimeSchema = buildTableSchema(DatasetType.REAL_TIME, table);
+            TableSchema streamSchema = buildTableSchema(Dataset.STREAM, table);
+            TableSchema realTimeSchema = buildTableSchema(Dataset.REAL_TIME, table);
 
             if (currentStreamTable == null) {
                 createStreamTable(table, streamSchema);
@@ -118,7 +110,7 @@ public class BigQueryHelper {
         try {
             TableReference tableReference = new TableReference()
                 .setProjectId(bigQueryConfig.getProjectId())
-                .setDatasetId(constructDatasetId(DatasetType.STREAM, table.getSource()))
+                .setDatasetId(bigQueryConfig.getDatasetId(Dataset.STREAM, table.getSource()))
                 .setTableId(table.getName());
 
             return datasetService.getTable(tableReference);
@@ -136,11 +128,11 @@ public class BigQueryHelper {
      *   <li>Convert the list of fields to a BigQuery TableSchema.</li>
      * </ol>
      *
-     * @param datasetType the {@link DatasetType} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
-     * @param table       the {@link Table} object representing the table whose schema is to be generated.
+     * @param dataset the {@link Dataset} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
+     * @param table   the {@link Table} object representing the table whose schema is to be generated.
      * @return the constructed table schema.
      */
-    private TableSchema buildTableSchema(DatasetType datasetType, Table table) {
+    private TableSchema buildTableSchema(Dataset dataset, Table table) {
         List<TableFieldSchema> fields = table.getSchema().getFields().stream()
             .map(field -> new TableFieldSchema()
                 .setName(field.getName())
@@ -157,7 +149,7 @@ public class BigQueryHelper {
                 .setDescription(table.getTablePartition().getDescription()));
         }
 
-        if (datasetType == DatasetType.STREAM) {
+        if (dataset == Dataset.STREAM) {
             fields.addAll(getMetadataFieldsForSource(table.getSource()));
         } else {
             fields.add(new TableFieldSchema()
@@ -198,7 +190,7 @@ public class BigQueryHelper {
             com.google.api.services.bigquery.model.Table bgTable = new com.google.api.services.bigquery.model.Table()
                 .setTableReference(new TableReference()
                     .setProjectId(bigQueryConfig.getProjectId())
-                    .setDatasetId(constructDatasetId(DatasetType.STREAM, table.getSource()))
+                    .setDatasetId(bigQueryConfig.getDatasetId(Dataset.STREAM, table.getSource()))
                     .setTableId(table.getName()))
                 .setSchema(tableSchema)
                 .setTimePartitioning(new TimePartitioning()
@@ -232,7 +224,7 @@ public class BigQueryHelper {
      * @param currentFields a {@link Map} containing the current field names and types.
      */
     private void alterStreamTable(Table table, Map<String, String> latestFields, Map<String, String> currentFields) {
-        String streamTableName = constructFullyQualifiedTableName(DatasetType.STREAM, table);
+        String streamTableName = bigQueryConfig.getFullyQualifiedTableName(Dataset.STREAM, table.getSource(), table.getName());
 
         List<String> queries = new LinkedList<>();
         latestFields.forEach((name, type) -> {
@@ -261,9 +253,9 @@ public class BigQueryHelper {
      * @param tableSchema the {@link TableSchema} object defining the schema of the view.
      */
     private void createOrReplaceRealTimeView(Table table, TableSchema tableSchema) {
-        String dailyTableName = constructFullyQualifiedTableName(DatasetType.DAILY, table);
-        String streamTableName = constructFullyQualifiedTableName(DatasetType.STREAM, table);
-        String realTimeTableName = constructFullyQualifiedTableName(DatasetType.REAL_TIME, table);
+        String dailyTableName = bigQueryConfig.getFullyQualifiedTableName(Dataset.DAILY, table.getSource(), table.getName());
+        String streamTableName = bigQueryConfig.getFullyQualifiedTableName(Dataset.STREAM, table.getSource(), table.getName());
+        String realTimeTableName = bigQueryConfig.getFullyQualifiedTableName(Dataset.REAL_TIME, table.getSource(), table.getName());
 
         String selectPattern = tableSchema.getFields().stream()
             .map(TableFieldSchema::getName)
@@ -350,35 +342,5 @@ public class BigQueryHelper {
                 (existing, replacement) -> replacement,
                 LinkedHashMap::new
             ));
-    }
-
-    /**
-     * Constructs the fully qualified table name for a specific dataset type and table.
-     *
-     * @param datasetType the {@link DatasetType} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
-     * @param table       the {@link Table} object representing the table whose name is constructed.
-     * @return the fully qualified table name as a {@link String}, in the format `projectId.datasetId.tableId`.
-     */
-    private String constructFullyQualifiedTableName(DatasetType datasetType, Table table) {
-        return "%s.%s.%s".formatted(
-            bigQueryConfig.getProjectId(),
-            constructDatasetId(datasetType, table.getSource()),
-            table.getName()
-        );
-    }
-
-    /**
-     * Constructs the dataset ID for a specific dataset type and source system.
-     *
-     * @param datasetType the {@link DatasetType} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
-     * @param source      the {@link Source} system of the dataset (e.g., MYSQL, POSTGRESQL, MONGODB).
-     * @return the constructed dataset ID as a {@link String}.
-     */
-    private String constructDatasetId(DatasetType datasetType, Source source) {
-        return "%s_%s_%s".formatted(
-            bigQueryConfig.getDatasetId(),
-            datasetType.toString().toLowerCase(),
-            source.toString().toLowerCase()
-        );
     }
 }
