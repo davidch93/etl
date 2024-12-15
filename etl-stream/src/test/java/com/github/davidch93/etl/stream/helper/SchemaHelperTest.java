@@ -2,6 +2,7 @@ package com.github.davidch93.etl.stream.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.davidch93.etl.core.constants.Source;
 import com.github.davidch93.etl.core.schema.*;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -43,7 +44,7 @@ public class SchemaHelperTest {
         // Assert table-level properties
         assertThat(table).isNotNull();
         assertThat(table.getName()).isEqualTo("github_staging_orders");
-        assertThat(table.getSource()).isEqualTo(Table.Source.MYSQL);
+        assertThat(table.getSource()).isEqualTo(Source.MYSQL);
         assertThat(table.getConstraintKeys()).isNotEmpty().containsExactly("id");
         assertThat(table.getClusteredColumns()).isNotEmpty().containsExactly("id");
 

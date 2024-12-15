@@ -1,5 +1,6 @@
 package com.github.davidch93.etl.core.schema;
 
+import com.github.davidch93.etl.core.constants.Source;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,7 +12,6 @@ import java.util.List;
 
 import static com.github.davidch93.etl.core.schema.Field.FieldType;
 import static com.github.davidch93.etl.core.schema.FieldRule.Rule;
-import static com.github.davidch93.etl.core.schema.Table.Source;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

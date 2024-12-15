@@ -1,6 +1,8 @@
 package com.github.davidch93.etl.core.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.davidch93.etl.core.constants.Dataset;
+import com.github.davidch93.etl.core.constants.Source;
 
 import java.io.Serializable;
 
@@ -164,5 +166,27 @@ public class BigQueryConfig implements Serializable {
      */
     public void setTemporaryGcsBucket(String temporaryGcsBucket) {
         this.temporaryGcsBucket = temporaryGcsBucket;
+    }
+
+    /**
+     * Constructs the dataset ID for a specific dataset and source system.
+     *
+     * @param dataset the {@link Dataset} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
+     * @param source  the {@link Source} system of the dataset (e.g., MYSQL, POSTGRESQL, MONGODB).
+     * @return the constructed dataset ID as a {@code String}.
+     */
+    public String getDatasetId(Dataset dataset, Source source) {
+        return String.format("%s_%s_%s", datasetId, dataset.toString().toLowerCase(), source.toString().toLowerCase());
+    }
+
+    /**
+     * Constructs the fully qualified table name for a specific dataset, source system, and table name.
+     *
+     * @param dataset the {@link Dataset} indicating the type of dataset (e.g., STREAM, DAILY, REAL_TIME).
+     * @param source  the {@link Source} system of the dataset (e.g., MYSQL, POSTGRESQL, MONGODB).
+     * @return the fully qualified table name as a {@code String}, in the format `projectId.datasetId.tableId`.
+     */
+    public String getFullyQualifiedTableName(Dataset dataset, Source source, String tableName) {
+        return String.format("%s.%s.%s", projectId, getDatasetId(dataset, source), tableName);
     }
 }

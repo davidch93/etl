@@ -1,6 +1,8 @@
 package com.github.davidch93.etl.core.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.davidch93.etl.core.constants.Dataset;
+import com.github.davidch93.etl.core.constants.Source;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -77,6 +79,10 @@ class ConfigLoaderTest {
         assertThat(bigQueryConfig.getCreateDisposition()).isEqualTo("CREATE_IF_NEEDED");
         assertThat(bigQueryConfig.getPartitionExpiryMillis()).isEqualTo(172800000L);
         assertThat(bigQueryConfig.getTemporaryGcsBucket()).isEqualTo("gs://dataproc-temp-staging");
+
+        assertThat(bigQueryConfig.getDatasetId(Dataset.DAILY, Source.MYSQL)).isEqualTo("bronze_daily_mysql");
+        assertThat(bigQueryConfig.getFullyQualifiedTableName(Dataset.DAILY, Source.MYSQL, "orders"))
+            .isEqualTo("github-staging.bronze_daily_mysql.orders");
     }
 
     @Test
