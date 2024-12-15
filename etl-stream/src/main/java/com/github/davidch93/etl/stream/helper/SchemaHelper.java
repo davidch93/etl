@@ -2,6 +2,7 @@ package com.github.davidch93.etl.stream.helper;
 
 import com.github.davidch93.etl.core.schema.Table;
 import com.github.davidch93.etl.core.utils.JsonUtils;
+import com.github.davidch93.etl.core.utils.KafkaTopicResolver;
 import com.google.cloud.storage.Storage;
 
 /**
@@ -53,8 +54,13 @@ public class SchemaHelper {
      * @return the {@link Table} object representing the schema definition.
      */
     public Table loadTableSchema(String topic) {
-        String[] tokens = topic.split("\\.");
-        String schemaFilePath = String.format("schema/%s/%s/%s/schema.json", tokens[0], tokens[1], tokens[2]);
+        KafkaTopicResolver resolver = KafkaTopicResolver.resolve(topic);
+        String schemaFilePath = "schema/%s/%s_%s/schema.json".formatted(
+            resolver.identifySource().toString().toLowerCase(),
+            resolver.getDatabaseName(),
+            resolver.getTableName()
+        );
+
         String content = gcsHelper.readFile(bucket.replace("gs://", ""), schemaFilePath);
 
         return JsonUtils.readValue(content, Table.class);

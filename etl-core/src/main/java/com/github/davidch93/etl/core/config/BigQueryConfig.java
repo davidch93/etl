@@ -34,7 +34,7 @@ public class BigQueryConfig implements Serializable {
     @JsonProperty(value = "region", required = true)
     private String region;
 
-    @JsonProperty(value = "dataset_id", required = true)
+    @JsonProperty(value = "dataset_id")
     private String datasetId;
 
     @JsonProperty(value = "create_disposition")

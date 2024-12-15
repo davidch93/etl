@@ -67,7 +67,7 @@ public class BigQueryHelperTest {
      */
     @Test
     void testPreparePipelineForMySql_whenStreamTableNotExist_expectTableAndViewCreated() throws Exception {
-        String schemaFilePath = "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         String realTimeViewQuery = """
@@ -137,7 +137,7 @@ public class BigQueryHelperTest {
             .setDescription("Schema for the orders table");
         fakeDatasetService.createTable(streamOrders);
 
-        String schemaFilePath = "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         String alterQuery = """
@@ -171,7 +171,7 @@ public class BigQueryHelperTest {
      */
     @Test
     void testPreparePipelineForPostgreSql_whenStreamTableNotExist_expectTableAndViewCreated() throws Exception {
-        String schemaFilePath = "src/test/resources/schema/postgresqlstaging/github_staging/users/schema.json";
+        String schemaFilePath = "src/test/resources/schema/postgresql/github_staging_users/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         String realTimeViewQuery = """
@@ -217,7 +217,7 @@ public class BigQueryHelperTest {
         // Create a stream table
         fakeDatasetService.createTable(PostgreSqlTable.STREAM_USERS);
 
-        String schemaFilePath = "src/test/resources/schema/postgresqlstaging/github_staging/users/schema.json";
+        String schemaFilePath = "src/test/resources/schema/postgresql/github_staging_users/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         bigQueryHelper.prepareStreamTablesAndRealTimeViews(List.of(table));
@@ -236,7 +236,7 @@ public class BigQueryHelperTest {
      */
     @Test
     void testPreparePipelineForMongoDb_whenStreamTableNotExist_expectTableAndViewCreated() throws Exception {
-        String schemaFilePath = "src/test/resources/schema/mongodbstaging/github_staging/transactions/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mongodb/github_staging_transactions/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         String realTimeViewQuery = """
@@ -286,7 +286,7 @@ public class BigQueryHelperTest {
 
     @Test
     void testPreparePipelineForUnsupportedSource_expectThrowException() {
-        String schemaFilePath = "src/test/resources/schema/dynamodbstaging/github_staging/transactions/schema.json";
+        String schemaFilePath = "src/test/resources/schema/dynamodb/github_staging_transactions/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
 
         assertThatThrownBy(() -> bigQueryHelper.prepareStreamTablesAndRealTimeViews(List.of(table)))

@@ -30,7 +30,7 @@ public class DataPoolStreamMongoDbTransformerTest {
     static void setup() {
         DateTimeUtils.setCurrentMillisFixed(WRITE_TIME);
 
-        String schemaFilePath = "src/test/resources/schema/mongodbstaging/github_staging/transactions/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mongodb/github_staging_transactions/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
         tablesByName = Map.of(table.getName(), table);
     }

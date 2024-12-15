@@ -30,7 +30,7 @@ public class DataPoolStreamMySqlTransformerTest {
     static void setup() {
         DateTimeUtils.setCurrentMillisFixed(WRITE_TIME);
 
-        String schemaFilePath = "src/test/resources/schema/mysqlstaging/github_staging/orders/schema.json";
+        String schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json";
         Table table = SchemaLoader.loadTableSchema(schemaFilePath);
         tablesByName = Map.of(table.getName(), table);
     }
