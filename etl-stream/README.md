@@ -98,5 +98,7 @@ To submit a job, execute the following command.
 --maxNumWorkers=<your-max-workers>
 --workerMachineType=<your-machine-type>
 --workerDiskType=<your-disk-type>
---diskSizeGb=<your-disk-size>"
+--diskSizeGb=<your-disk-size>
+--pipelineType=DATA_POOL_STREAM
+--configPath=<your-filesystem>://<path>/config.json"
 ```
