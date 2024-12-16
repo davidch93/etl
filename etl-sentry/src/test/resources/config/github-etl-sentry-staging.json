@@ -1,0 +1,21 @@
+{
+  "group_name": "bronze-daily",
+  "max_threads": 2,
+  "config_bucket": "gs://github-config-staging",
+  "deequ_repository_config": {
+    "project_id": "github-staging",
+    "region": "asia-southeast1",
+    "dataset_id": "bronze_sentry",
+    "create_disposition": "CREATE_IF_NEEDED",
+    "temporary_gcs_bucket": "gs://dataproc-temp-staging"
+  },
+  "source_bigquery_config": {
+    "project_id": "github-staging",
+    "region": "asia-southeast1"
+  },
+  "table_whitelist": [
+    "bronze_daily_mysql.github_staging_orders",
+    "bronze_daily_postgresql.github_staging_users",
+    "bronze_daily_mongodb.github_staging_transactions"
+  ]
+}
