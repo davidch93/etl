@@ -8,6 +8,7 @@ It integrates with Apache Beam and BigQuery to provide a robust framework for ha
 - [Requirements](#requirements)
 - [Features](#features)
 - [Usage](#usage)
+  - [Unit Test](#unit-test)
   - [Configuration](#configuration)
   - [Submit Job](#submit-a-job-to-google-cloud-dataflow)
 
@@ -79,7 +80,7 @@ To submit a job, execute the following command.
 ```shell
 ./gradlew clean execute \
 -Dorg.xerial.snappy.use.systemlib='true' \
--DmainClass='com.github.davidch93.etl..stream.EtlStreamApplication' \
+-DmainClass='com.github.davidch93.etl.stream.EtlStreamApplication' \
 -Dexec.args="
 --streaming=true
 --project=<your-project-id>
