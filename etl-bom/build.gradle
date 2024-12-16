@@ -19,7 +19,7 @@ ext {
     beamVersion = '2.61.0'
     beamGoogleCloudNioVersion = '0.127.28'
 
-    jcommanderVersion = '2.0'
+    jcommanderVersion = '1.82'
     jakartaMailVersion = '2.0.1'
 
     junitVersion = '5.11.3'
@@ -50,7 +50,7 @@ dependencies {
         api "com.google.cloud:google-cloud-nio:$beamGoogleCloudNioVersion"
 
         // Utility dependencies
-        api "org.jcommander:jcommander:$jcommanderVersion"
+        api "com.beust:jcommander:$jcommanderVersion"
         api "com.sun.mail:jakarta.mail:$jakartaMailVersion"
 
         // Testing dependencies
