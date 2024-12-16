@@ -10,6 +10,7 @@ dependencies {
     implementation 'org.apache.spark:spark-core_2.12'
     implementation 'org.apache.spark:spark-sql_2.12'
     implementation 'org.apache.spark:spark-sql-kafka-0-10_2.12'
+    implementation 'com.beust:jcommander'
 
     testImplementation 'org.scalatest:scalatest_2.12'
     testImplementation 'org.mockito:mockito-scala_2.12'
