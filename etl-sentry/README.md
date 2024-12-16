@@ -89,7 +89,7 @@ gcloud dataproc jobs submit spark \
 --properties='^;^spark.sql.adaptive.enabled=true;spark.yarn.appMasterEnv.SMTP_HOST=smtp.mailgun.org;spark.yarn.appMasterEnv.SMTP_PORT=587;spark.yarn.appMasterEnv.SMTP_STARTTLS=False;spark.yarn.appMasterEnv.SMTP_SSL=False;spark.yarn.appMasterEnv.SMTP_MAIL_SENDER=cortabot@bukalapak.com;spark.yarn.appMasterEnv.SMTP_PASSWORD=<base64encoded-password>;spark.yarn.appMasterEnv.SMTP_USER=databot@bukalapak.com;spark.yarn.appMasterEnv.MAILING_LIST=<your-email>' \
 -- \
 validate \
---config-path <your-filesystem>://config.json \
+--config-path <your-filesystem>://<path>/config.json \
 --scheduled-timestamp <your-start-timestamp>
 ```
 
