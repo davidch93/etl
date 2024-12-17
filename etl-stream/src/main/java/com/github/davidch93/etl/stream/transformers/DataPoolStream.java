@@ -2,6 +2,7 @@ package com.github.davidch93.etl.stream.transformers;
 
 import com.github.davidch93.etl.core.schema.Table;
 import com.github.davidch93.etl.core.utils.DateTimeUtils;
+import com.github.davidch93.etl.core.utils.KafkaTopicResolver;
 import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.io.kafka.KafkaRecord;
 import org.apache.beam.sdk.metrics.Counter;
@@ -61,8 +62,8 @@ public class DataPoolStream extends DoFn<KafkaRecord<String, String>, TableRow> 
     @ProcessElement
     public void processElement(@Element KafkaRecord<String, String> kafkaRecord, OutputReceiver<TableRow> out) {
         try {
-            String[] tokens = kafkaRecord.getTopic().split("\\.");
-            String tableName = "%s_%s".formatted(tokens[1], tokens[2]);
+            KafkaTopicResolver resolver = KafkaTopicResolver.resolve(kafkaRecord.getTopic());
+            String tableName = "%s_%s".formatted(resolver.getDatabaseName(), resolver.getTableName());
             Table table = tablesByName.get(tableName);
 
             TableRow row = transform(kafkaRecord.getKV(), table)
