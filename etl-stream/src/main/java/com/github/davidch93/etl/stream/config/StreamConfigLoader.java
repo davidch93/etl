@@ -1,7 +1,7 @@
 package com.github.davidch93.etl.stream.config;
 
 import com.github.davidch93.etl.core.utils.JsonUtils;
-import com.github.davidch93.etl.stream.helper.GcsHelper;
+import com.github.davidch93.etl.stream.helpers.GcsHelper;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageException;
 import org.slf4j.Logger;

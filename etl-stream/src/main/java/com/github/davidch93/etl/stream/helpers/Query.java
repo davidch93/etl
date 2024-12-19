@@ -1,4 +1,4 @@
-package com.github.davidch93.etl.stream.helper;
+package com.github.davidch93.etl.stream.helpers;
 
 import com.google.api.services.bigquery.model.TableFieldSchema;
 
