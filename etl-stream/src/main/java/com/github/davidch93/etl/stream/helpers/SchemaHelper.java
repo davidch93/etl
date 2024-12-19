@@ -1,4 +1,4 @@
-package com.github.davidch93.etl.stream.helper;
+package com.github.davidch93.etl.stream.helpers;
 
 import com.github.davidch93.etl.core.schema.Table;
 import com.github.davidch93.etl.core.utils.JsonUtils;

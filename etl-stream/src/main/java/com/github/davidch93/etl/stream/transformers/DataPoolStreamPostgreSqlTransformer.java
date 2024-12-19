@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.davidch93.etl.core.schema.Field;
 import com.github.davidch93.etl.core.schema.Table;
 import com.github.davidch93.etl.core.utils.JsonUtils;
-import com.github.davidch93.etl.stream.helper.Row;
+import com.github.davidch93.etl.stream.helpers.Row;
 import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.values.KV;
 
