@@ -3,6 +3,7 @@ package com.github.davidch93.etl.core.schema;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class Field implements Serializable {
     private String description = "";
 
     @JsonProperty(value = "rules")
-    private List<FieldRule> rules;
+    private List<FieldRule> rules = Collections.emptyList();
 
     /**
      * Gets the name of the field.

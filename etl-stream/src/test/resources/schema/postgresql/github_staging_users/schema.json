@@ -43,5 +43,8 @@
         "doc": "Date of the order was updated"
       }
     ]
-  }
+  },
+  "constraint_keys": [
+    "id"
+  ]
 }

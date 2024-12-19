@@ -141,13 +141,13 @@ public class BigQueryHelper {
                 .setDescription(field.getDescription()))
             .collect(Collectors.toList());
 
-        if (table.getTablePartition() != null) {
+        table.getTablePartition().ifPresent(tablePartition ->
             fields.add(new TableFieldSchema()
-                .setName(table.getTablePartition().getPartitionColumn())
+                .setName(tablePartition.getPartitionColumn())
                 .setType("TIMESTAMP")
                 .setMode("REQUIRED")
-                .setDescription(table.getTablePartition().getDescription()));
-        }
+                .setDescription(tablePartition.getDescription()))
+        );
 
         if (dataset == Dataset.STREAM) {
             fields.addAll(getMetadataFieldsForSource(table.getSource()));
