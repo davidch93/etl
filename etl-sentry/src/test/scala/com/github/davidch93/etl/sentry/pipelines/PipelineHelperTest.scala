@@ -73,4 +73,15 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
     checks(1).toString shouldBe Check(CheckLevel.Error, "IS_UNIQUE")
       .isUnique("email", hint = Some("The value of this column must be unique!")).toString
   }
+
+  test("Generating Deequ Checks without any rules defined should return an empty rules") {
+    val pipelineHelper = PipelineHelper(2)
+
+    val schemaFilePath = "src/test/resources/schema/mongodb/github_staging_transactions/schema.json"
+    val table = SchemaLoader.loadTableSchema(schemaFilePath)
+
+    val checks = pipelineHelper.generateChecks(table.getSchema.getFields.asScala.toList)
+
+    checks should have size 0
+  }
 }

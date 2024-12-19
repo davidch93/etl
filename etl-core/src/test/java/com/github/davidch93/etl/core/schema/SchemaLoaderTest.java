@@ -30,7 +30,8 @@ public class SchemaLoaderTest {
         assertThat(table.getClusteredColumns()).isNotEmpty().containsExactly("id");
 
         // Assert table partition
-        TablePartition tablePartition = table.getTablePartition();
+        TablePartition tablePartition = table.getTablePartition()
+            .orElseThrow(() -> new RuntimeException("The table partition must not be null!"));
         assertThat(tablePartition.getSourceColumn()).isEqualTo("created_at");
         assertThat(tablePartition.getPartitionColumn()).isEqualTo("order_timestamp");
         assertThat(tablePartition.getPartitionType()).isEqualTo("DAY");
@@ -95,7 +96,7 @@ public class SchemaLoaderTest {
         assertThat(isExpiredField.getType()).isEqualTo(FieldType.BOOLEAN);
         assertThat(isExpiredField.isNullable()).isTrue();
         assertThat(isExpiredField.getDescription()).isEqualTo("Whether the order expires or not");
-        assertThat(isExpiredField.getRules()).isNull();
+        assertThat(isExpiredField.getRules()).isEmpty();
 
         // Field: created_at
         Field createdAtField = fields.get(4);

@@ -1,17 +1,19 @@
 package com.github.davidch93.etl.stream.helpers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.davidch93.etl.core.constants.Source;
 import com.github.davidch93.etl.core.schema.*;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.contrib.nio.testing.LocalStorageHelper;
+import com.google.common.io.ByteStreams;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -21,17 +23,17 @@ public class SchemaHelperTest {
     private static SchemaHelper schemaHelper;
 
     @BeforeAll
-    static void setup() throws JsonProcessingException {
+    static void setup() throws IOException {
         Storage localStorage = LocalStorageHelper.getOptions().getService();
 
         String bucket = "test-bucket";
         String schemaFilePath = "schema/mysql/github_staging_orders/schema.json";
-
-        Table table = SchemaLoader.loadTableSchema("src/test/resources/" + schemaFilePath);
-        byte[] jsonBytes = new ObjectMapper().writeValueAsBytes(table);
-
         BlobInfo blobInfo = BlobInfo.newBuilder(BlobId.of(bucket, schemaFilePath)).build();
-        localStorage.create(blobInfo, jsonBytes);
+
+        try (InputStream is = SchemaHelperTest.class.getClassLoader().getResourceAsStream(schemaFilePath)) {
+            byte[] jsonBytes = ByteStreams.toByteArray(Objects.requireNonNull(is));
+            localStorage.create(blobInfo, jsonBytes);
+        }
 
         schemaHelper = new SchemaHelper(localStorage, bucket);
     }
@@ -49,7 +51,8 @@ public class SchemaHelperTest {
         assertThat(table.getClusteredColumns()).isNotEmpty().containsExactly("id");
 
         // Assert table partition
-        TablePartition tablePartition = table.getTablePartition();
+        TablePartition tablePartition = table.getTablePartition()
+            .orElseThrow(() -> new RuntimeException("The table partition must not be null!"));
         assertThat(tablePartition.getSourceColumn()).isEqualTo("created_at");
         assertThat(tablePartition.getPartitionColumn()).isEqualTo("order_timestamp");
         assertThat(tablePartition.getPartitionType()).isEqualTo("DAY");
@@ -114,7 +117,7 @@ public class SchemaHelperTest {
         assertThat(isExpiredField.getType()).isEqualTo(Field.FieldType.BOOLEAN);
         assertThat(isExpiredField.isNullable()).isTrue();
         assertThat(isExpiredField.getDescription()).isEqualTo("Whether the order expires or not");
-        assertThat(isExpiredField.getRules()).isNull();
+        assertThat(isExpiredField.getRules()).isEmpty();
 
         // Field: created_at
         Field createdAtField = fields.get(4);

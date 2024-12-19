@@ -6,6 +6,7 @@ import com.github.davidch93.etl.core.constants.Source;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Configuration class representing a table for ETL processing.
@@ -44,14 +45,14 @@ public class Table implements Serializable {
     @JsonProperty(value = "schema", required = true)
     private TableSchema schema;
 
-    @JsonProperty(value = "constraint_keys")
-    private List<String> constraintKeys = Collections.singletonList("id");
+    @JsonProperty(value = "constraint_keys", required = true)
+    private List<String> constraintKeys;
 
     @JsonProperty(value = "table_partition")
     private TablePartition tablePartition;
 
     @JsonProperty(value = "clustered_columns")
-    private List<String> clusteredColumns;
+    private List<String> clusteredColumns = Collections.emptyList();
 
     /**
      * Gets the table name.
@@ -94,8 +95,8 @@ public class Table implements Serializable {
      *
      * @return The {@link TablePartition} instance.
      */
-    public TablePartition getTablePartition() {
-        return tablePartition;
+    public Optional<TablePartition> getTablePartition() {
+        return Optional.ofNullable(tablePartition);
     }
 
     /**

@@ -2,7 +2,6 @@ package com.github.davidch93.etl.stream.transformers;
 
 import com.github.davidch93.etl.core.config.BigQueryConfig;
 import com.github.davidch93.etl.core.schema.Table;
-import com.github.davidch93.etl.core.schema.TablePartition;
 import com.github.davidch93.etl.core.utils.DateTimeUtils;
 import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.metrics.Counter;
@@ -79,12 +78,11 @@ public class Partitioner extends DoFn<TableRow, TableRow> {
 
             String tableName = row.get(TABLE_NAME).toString();
             Table table = tablesByName.get(tableName);
-            if (table != null && table.getTablePartition() != null) {
-                TablePartition tablePartition = table.getTablePartition();
+            table.getTablePartition().ifPresent(tablePartition -> {
                 String partitionColumn = tablePartition.getPartitionColumn();
                 String sourceColumn = tablePartition.getSourceColumn();
                 partitionedRow.set(partitionColumn, extractTimestamp(row, sourceColumn));
-            }
+            });
 
             partitionedRow.set(TS_PARTITION, DateTimeUtils.formatEpochMillis(timestampMillis, TIMESTAMP_FORMAT));
             partitionedRow.remove(TS_MS);
