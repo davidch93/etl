@@ -1,0 +1,14 @@
+[
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"c\",\"ts_ms\":1733813344632,\"before\":null,\"after\":{\"id\":2,\"amount\":150000,\"status\":\"PAID\",\"is_expired\":false,\"created_at\":1733813319170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"MYSQL\",\"ts_ms\":1733813319670,\"name\":\"mysqlstaging\",\"db\":\"github_staging\",\"table\":\"orders\",\"server_id\":20241210,\"gtid\":\"50791c3f-66ae-ee15-4e7a-70668ea778de:14981727984\",\"file\":\"binlog-0001\",\"pos\":4,\"xid\":728530626}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813345632,\"before\":{\"id\":2,\"amount\":150000,\"status\":\"PAID\",\"is_expired\":false,\"created_at\":1733813319170},\"after\":{\"id\":2,\"amount\":150000,\"status\":\"PAID\",\"is_expired\":true,\"created_at\":1733813319170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"MYSQL\",\"ts_ms\":1733813320670,\"name\":\"mysqlstaging\",\"db\":\"github_staging\",\"table\":\"orders\",\"server_id\":20241210,\"gtid\":\"50791c3f-66ae-ee15-4e7a-70668ea778de:14981727985\",\"file\":\"binlog-0001\",\"pos\":5,\"xid\":728530627}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"d\",\"ts_ms\":1733813346632,\"before\":{\"id\":2,\"amount\":150000,\"status\":\"PAID\",\"is_expired\":true,\"created_at\":1733813319170},\"after\":null,\"source\":{\"version\":\"1.0.0\",\"connector\":\"MYSQL\",\"ts_ms\":1733813321670,\"name\":\"mysqlstaging\",\"db\":\"github_staging\",\"table\":\"orders\",\"server_id\":20241210,\"gtid\":\"50791c3f-66ae-ee15-4e7a-70668ea778de:14981727986\",\"file\":\"binlog-0001\",\"pos\":6,\"xid\":728530628}}}"
+  }
+]

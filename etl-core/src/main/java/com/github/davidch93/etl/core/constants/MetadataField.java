@@ -29,6 +29,7 @@ public final class MetadataField {
     // Debezium
     public static final String PAYLOAD = "payload";
     public static final String PAYLOAD_ID = "id";
+    public static final String PAYLOAD_TS_MS = "ts_ms";
     public static final String PAYLOAD_OP = "op";
     public static final String PAYLOAD_OP_R = "r";
     public static final String PAYLOAD_OP_C = "c";
@@ -51,16 +52,25 @@ public final class MetadataField {
     public static final String PAYLOAD_SOURCE_SEQUENCE_NUMBER = "sequence_number";
 
     // ETL
+    public static final String STRUCT_SOURCE = "_struct_source";
+    public static final String STRUCT_DATA = "_struct_data";
+    public static final String JSON_DATA = "_json_data";
     public static final String IS_DELETED = "_is_deleted";
     public static final String TABLE_NAME = "_table_name";
     public static final String SOURCE = "_source";
     public static final String OP = "_op";
     public static final String TS_MS = "_ts_ms";
     public static final String TS_PARTITION = "_ts_partition";
+    public static final String DATE_TIME_PARTITION = "_datetime_partition";
     public static final String FILE = "_file";
     public static final String POS = "_pos";
     public static final String ORD = "_ord";
     public static final String LSN = "_lsn";
+    public static final String SHARD_ID = "_shard_id";
+    public static final String SEQUENCE_NUMBER = "_sequence_number";
     public static final String AUDIT_WRITE_TIME = "_audit_write_time";
+
+    // DateTime & Timestamp Format
+    public static final String DATE_HOUR_FORMAT = "yyyy-MM-dd'T'HH:00:00";
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss z";
 }

@@ -1,0 +1,30 @@
+[
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"c\",\"ts_ms\":1733813344632,\"before\":null,\"after\":\"{\\\"_id\\\":{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"},\\\"user_id\\\":{\\\"$numberInt\\\":2},\\\"order_id\\\":{\\\"$numberLong\\\":2},\\\"fee\\\":{\\\"$numberDecimal\\\":\\\"12345.6789\\\"},\\\"created_at\\\":{\\\"$date\\\":1733813319170},\\\"updated_at\\\":{\\\"$date\\\":1733813319170}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813319670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":31}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813345632,\"before\":null,\"patch\":\"{\\\"$set\\\":{\\\"fee\\\":{\\\"$numberDecimal\\\":\\\"12345.67891\\\"},\\\"updated_at\\\":{\\\"$date\\\":1733813320170}}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813320670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":32}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813346632,\"before\":null,\"patch\":\"{\\\"fee\\\":{\\\"$numberDecimal\\\":\\\"12345.67892\\\"},\\\"updated_at\\\":{\\\"$date\\\":1733813321170}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813321670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":33}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813347632,\"before\":null,\"patch\":\"{\\\"v\\\":2,\\\"diff\\\":{\\\"i\\\":{\\\"notes\\\":\\\"example\\\"}}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813322670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":34}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813348632,\"before\":null,\"patch\":\"{\\\"v\\\":2,\\\"diff\\\":{\\\"u\\\":{\\\"updated_at\\\":{\\\"$date\\\":1733813322170}}}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813323670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":35}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813349632,\"before\":null,\"patch\":\"{\\\"v\\\":2,\\\"diff\\\":{\\\"u\\\":{\\\"updated_at\\\":{\\\"$date\\\":1733813323170}},\\\"i\\\":{\\\"notes\\\":{\\\"user\\\":\\\"data\\\",\\\"status\\\":\\\"PAID\\\"}}}}\",\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813324670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":36}}}"
+  },
+  {
+    "key": "{\"payload\":{\"id\":\"{\\\"$oid\\\":\\\"630b23db6ef80123d6e72d74\\\"}\"}}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"d\",\"ts_ms\":1733813350632,\"before\":null,\"after\":null,\"source\":{\"version\":\"1.0.0\",\"connector\":\"MONGODB\",\"ts_ms\":1733813325670,\"name\":\"mongodbstaging\",\"db\":\"github_staging\",\"collection\":\"transactions\",\"ord\":37}}}"
+  }
+]
