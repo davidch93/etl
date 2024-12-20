@@ -99,7 +99,7 @@ class PipelineHelper private(maxThreads: Int) {
       case IS_UNIQUE =>
         Check(CheckLevel.Error, rule.toString).isUnique(fieldName, hint = Some(hint))
       case _ =>
-        throw new Exception(s"Unsupported rule for `$rule`!")
+        throw new IllegalArgumentException(s"Unsupported rule for `$rule`!")
     }
   }
 
