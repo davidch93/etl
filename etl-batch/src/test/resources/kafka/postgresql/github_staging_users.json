@@ -1,0 +1,14 @@
+[
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"c\",\"ts_ms\":1733813344632,\"before\":null,\"after\":{\"id\":2,\"email\":\"user@example.com\",\"created_at\":1733813319170,\"updated_at\":1733813319170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"POSTGRESQL\",\"ts_ms\":1733813319670,\"name\":\"postgresqlstaging\",\"db\":\"github_staging\",\"schema\":\"public\",\"table\":\"users\",\"lsn\":24023128,\"txid\":728530626}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":1733813345632,\"before\":null,\"after\":{\"id\":2,\"email\":\"user-updated@example.com\",\"created_at\":1733813319170,\"updated_at\":1733813320170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"POSTGRESQL\",\"ts_ms\":1733813320670,\"name\":\"postgresqlstaging\",\"db\":\"github_staging\",\"schema\":\"public\",\"table\":\"users\",\"lsn\":24023129,\"txid\":728530627}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"d\",\"ts_ms\":1733813346632,\"before\":null,\"after\":null,\"source\":{\"version\":\"1.0.0\",\"connector\":\"POSTGRESQL\",\"ts_ms\":1733813321670,\"name\":\"postgresqlstaging\",\"db\":\"github_staging\",\"schema\":\"public\",\"table\":\"users\",\"lsn\":24023130,\"txid\":728530628}}}"
+  }
+]

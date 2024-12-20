@@ -1,0 +1,14 @@
+[
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"c\",\"ts_ms\":\"1733813344632\",\"before\":null,\"after\":{\"id\":2,\"user_id\":2,\"order_id\":2,\"notes\":null,\"created_at\":1733813319170,\"updated_at\":1733813319170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"DYNAMODB\",\"ts_ms\":\"1733813319670\",\"name\":\"dynamodbstaging\",\"db\":\"github_staging\",\"table\":\"transactions\",\"shard_id\":\"shardId-00000001696411483678-f3df68e4\",\"sequence_number\":\"600000000019036501898\"}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"u\",\"ts_ms\":\"1733813345632\",\"before\":{\"id\":2,\"user_id\":2,\"order_id\":2,\"notes\":\"\",\"created_at\":1733813319170,\"updated_at\":1733813319170},\"after\":{\"id\":2,\"user_id\":2,\"order_id\":2,\"notes\":\"example\",\"created_at\":1733813319170,\"updated_at\":1733813320170},\"source\":{\"version\":\"1.0.0\",\"connector\":\"DYNAMODB\",\"ts_ms\":\"1733813320670\",\"name\":\"dynamodbstaging\",\"db\":\"github_staging\",\"table\":\"transactions\",\"shard_id\":\"shardId-00000001696411483678-f3df68e4\",\"sequence_number\":\"600000000019036501899\"}}}"
+  },
+  {
+    "key": "{\"id\":2}",
+    "value": "{\"schema\":[],\"payload\":{\"op\":\"d\",\"ts_ms\":\"1733813346632\",\"before\":{\"id\":2,\"user_id\":2,\"order_id\":2,\"notes\":\"example\",\"created_at\":1733813319170,\"updated_at\":1733813320170},\"after\":null,\"source\":{\"version\":\"1.0.0\",\"connector\":\"DYNAMODB\",\"ts_ms\":\"1733813321670\",\"name\":\"dynamodbstaging\",\"db\":\"github_staging\",\"table\":\"transactions\",\"shard_id\":\"shardId-00000001696411483678-f3df68e4\",\"sequence_number\":\"600000000019036501900\"}}}"
+  }
+]

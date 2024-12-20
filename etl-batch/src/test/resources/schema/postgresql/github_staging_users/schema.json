@@ -1,0 +1,50 @@
+{
+  "table_name": "github_staging_users",
+  "source_type": "POSTGRESQL",
+  "schema": {
+    "type": "record",
+    "name": "users",
+    "doc": "Schema for the users table",
+    "fields": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "doc": "Unique identifier for the user",
+        "rules": [
+          {
+            "rule": "IS_PRIMARY_KEY",
+            "hint": "The value of this column must be unique and not NULL!"
+          }
+        ]
+      },
+      {
+        "name": "email",
+        "type": "STRING",
+        "nullable": false,
+        "doc": "The email address corresponding to the user",
+        "rules": [
+          {
+            "rule": "IS_UNIQUE",
+            "hint": "The value of this column must be unique!"
+          }
+        ]
+      },
+      {
+        "name": "created_at",
+        "type": "INTEGER",
+        "nullable": false,
+        "doc": "Date of the order was created"
+      },
+      {
+        "name": "updated_at",
+        "type": "INTEGER",
+        "nullable": false,
+        "doc": "Date of the order was updated"
+      }
+    ]
+  },
+  "constraint_keys": [
+    "id"
+  ]
+}
