@@ -57,8 +57,6 @@
     ]
   },
   "constraint_keys": [
-    "_id",
-    "user_id",
-    "order_id"
+    "_id"
   ]
 }

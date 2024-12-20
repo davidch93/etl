@@ -68,6 +68,7 @@ public final class MetadataField {
     public static final String LSN = "_lsn";
     public static final String SHARD_ID = "_shard_id";
     public static final String SEQUENCE_NUMBER = "_sequence_number";
+    public static final String ROW_NUMBER = "_row_number";
     public static final String AUDIT_WRITE_TIME = "_audit_write_time";
 
     // DateTime & Timestamp Format

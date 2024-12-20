@@ -6,7 +6,7 @@ import com.github.davidch93.etl.core.constants.MetadataField._
 import com.github.davidch93.etl.core.constants.Source
 import com.github.davidch93.etl.core.schema.Table
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.StringType
+import org.apache.spark.sql.types.{StringType, StructType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.time.{LocalDateTime, ZoneOffset}
@@ -47,24 +47,26 @@ class Kafka private(
 
   import spark.implicits._
 
-  private val transformToRawDataLake: DataFrame => DataFrame = kafkaDataFrame => {
+  private val transformToRawDataLake: DataFrame => DataFrame = kafkaDataFrame =>
     table.getSource match {
       case Source.MYSQL => DataLakeMySqlTransformer.transformToRawDataLake(kafkaDataFrame)
       case Source.POSTGRESQL => DataLakePostgreSqlTransformer.transformToRawDataLake(kafkaDataFrame)
       case Source.MONGODB => DataLakeMongoDbTransformer.transformToRawDataLake(kafkaDataFrame)
       case Source.DYNAMODB => DataLakeDynamoDbTransformer.transformToRawDataLake(kafkaDataFrame)
+      case other =>
+        throw new UnsupportedOperationException(s"Unsupported data lake transformation from source: `$other`!")
     }
-  }
 
-  private val transformToCuratedDataLake: DataFrame => DataFrame = rawLakeDataFrame => {
-    val schema = SchemaConverter.tableSchemaToStructType(table.getSchema)
+  private val transformToCuratedDataLake: (DataFrame, StructType) => DataFrame = (rawLakeDataFrame, schema) =>
     table.getSource match {
       case Source.MYSQL => DataLakeMySqlTransformer.transformToCuratedDataLake(rawLakeDataFrame, schema)
       case Source.POSTGRESQL => DataLakePostgreSqlTransformer.transformToCuratedDataLake(rawLakeDataFrame, schema)
       case Source.MONGODB => DataLakeMongoDbTransformer.transformToCuratedDataLake(rawLakeDataFrame, schema)
       case Source.DYNAMODB => DataLakeDynamoDbTransformer.transformToCuratedDataLake(rawLakeDataFrame, schema)
+      case other =>
+        throw new UnsupportedOperationException(s"Unsupported data lake transformation from source: `$other`!")
     }
-  }
+
 
   /**
    * Loads data from Kafka, applies transformations, and writes the raw and curated data to the Data Lake.
@@ -112,7 +114,8 @@ class Kafka private(
         .execute()
     }
 
-    val curatedLakeDataFrame = transformToCuratedDataLake(rawLakeDataFrame)
+    val schema = SchemaConverter.tableSchemaToStructType(table.getSchema)
+    val curatedLakeDataFrame = transformToCuratedDataLake(rawLakeDataFrame, schema)
       .withColumn(IS_DELETED, when($"$PAYLOAD_OP" === PAYLOAD_OP_D, true).otherwise(false))
       .transform(addPartitionColumn)
 
@@ -189,20 +192,21 @@ class Kafka private(
 object Kafka {
 
   /**
-   * Initializes a Kafka builder using the active `SparkSession`.
+   * Creates a `KafkaBuilder` for the given Kafka topic using the active `SparkSession`.
    *
    * @param kafkaTopic The Kafka topic to read from.
    * @return A `KafkaBuilder` instance for further configuration.
+   * @throws IllegalArgumentException if no active `SparkSession` is found.
    */
   def read(kafkaTopic: String): KafkaBuilder = {
     val spark = SparkSession.getActiveSession.getOrElse {
-      throw new IllegalArgumentException("Could not find active SparkSession")
+      throw new IllegalArgumentException("Could not find active SparkSession!")
     }
     read(spark, kafkaTopic)
   }
 
   /**
-   * Initializes a Kafka builder with the specified `SparkSession` and topic.
+   * Creates a `KafkaBuilder` with the specified `SparkSession` and Kafka topic.
    *
    * @param spark      The `SparkSession` to use.
    * @param kafkaTopic The Kafka topic to read from.
