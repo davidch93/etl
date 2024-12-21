@@ -8,6 +8,7 @@ import com.github.davidch93.etl.core.schema.SchemaLoader
 import com.github.davidch93.etl.core.utils.{BigQueryTableResolver, DateTimeUtils}
 import com.github.davidch93.etl.sentry.config.SentryConfigLoader
 import com.github.davidch93.etl.sentry.constants.Field._
+import com.github.davidch93.etl.sentry.helpers.PipelineHelper
 import com.github.davidch93.etl.sentry.repository.BigQueryMetricsRepository
 import org.apache.spark.sql.SparkSession
 import org.slf4j.LoggerFactory

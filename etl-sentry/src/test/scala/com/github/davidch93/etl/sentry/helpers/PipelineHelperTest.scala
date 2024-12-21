@@ -1,4 +1,4 @@
-package com.github.davidch93.etl.sentry.pipelines
+package com.github.davidch93.etl.sentry.helpers
 
 import com.amazon.deequ.checks.{Check, CheckLevel}
 import com.github.davidch93.etl.core.schema.{Field, SchemaLoader}
