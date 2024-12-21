@@ -53,9 +53,9 @@ class GcsWriter(dataFrame: DataFrame, gcsPath: String, partitions: Array[String]
 object GcsWriter {
 
   /**
-   * Initializes a builder for writing a DataFrame to GCS in append mode.
+   * Creates a `GcsWriterBuilder` for writing a `DataFrame` to GCS in append mode.
    *
-   * @param dataFrame The input DataFrame to be written.
+   * @param dataFrame The input `DataFrame` to be written.
    * @return An instance of `GcsWriterBuilder` for further configuration.
    */
   def writeAppend(dataFrame: DataFrame): GcsWriterBuilder = {
@@ -65,7 +65,7 @@ object GcsWriter {
   /**
    * A builder class for configuring and executing GCS write operations.
    *
-   * @param dataFrame  The DataFrame to be written.
+   * @param dataFrame  The `DataFrame` to be written.
    * @param gcsPath    The target GCS path for storing the data.
    * @param partitions An array of column names used for partitioning the data.
    */
@@ -76,7 +76,7 @@ object GcsWriter {
   ) {
 
     /**
-     * Sets the GCS path for the write operation.
+     * Specifies the GCS path for the write operation.
      *
      * @param gcsPath The target GCS path.
      * @return A new instance of `GcsWriterBuilder` with the updated GCS path.
@@ -85,7 +85,7 @@ object GcsWriter {
       copy(gcsPath = gcsPath)
 
     /**
-     * Sets the columns for partitioning the data.
+     * Specifies the columns for partitioning the data.
      *
      * @param partitions An array of column names used for partitioning.
      * @return A new instance of `GcsWriterBuilder` with the updated partition columns.
