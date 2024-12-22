@@ -63,16 +63,16 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
    * Sends notifications for any data quality issues.
    */
   override def start(): Unit = {
-    logger.info(s"[ETL-SENTRY] Starting the `${config.groupName}` jobs.")
+    logger.info(s"[ETL-SENTRY] Starting jobs for group: `${config.groupName}`.")
 
     val tablesToValidate = filterTablesToValidate(config.tableWhitelist)
     val isValidationSuccessful = pipelineHelper.executeJobs(tablesToValidate, validateTable)
 
     if (!isValidationSuccessful) {
-      doNotifyOnDataQualityIssueDetected()
+      notifyOnDataQualityIssues()
     }
 
-    logger.info(f"[ETL-SENTRY] All `${config.groupName}` jobs finished!")
+    logger.info(s"[ETL-SENTRY] All jobs for group `${config.groupName}` completed successfully.")
   }
 
   /**
@@ -105,7 +105,7 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
    */
   private def validateTable(bigQueryTableName: String): Boolean = {
     val resolver = BigQueryTableResolver.resolve(bigQueryTableName)
-    val schemaFilePath = s"schema/${resolver.identifySource.toString.toLowerCase}/${resolver.getTableName}/schema.json"
+    val schemaFilePath = s"${config.configBucket}/schema/${resolver.identifySource.toString.toLowerCase}/${resolver.getTableName}/schema.json"
     val tableSchema = SchemaLoader.loadTableSchema(schemaFilePath)
 
     val fullyQualifiedTableName = s"${config.sourceBigQueryConfig.getProjectId}.$bigQueryTableName"
@@ -138,7 +138,7 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
   /**
    * Sends notifications when data quality issues are detected.
    */
-  private def doNotifyOnDataQualityIssueDetected(): Unit = {
+  private def notifyOnDataQualityIssues(): Unit = {
     val invalidRows = metricsRepository
       .loadSummaryTable(s"DATE($TIMESTAMP) >= '$executionDate' " +
         s"AND $VALIDATION_DATE = $executionTimestampMillis " +
@@ -147,6 +147,6 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
       .select(TABLE_NAME, MESSAGE)
       .collect()
 
-    pipelineHelper.notifyOnInvalidData(invalidRows, config.groupName, scheduledTimestamp)
+    pipelineHelper.notifyOnInvalidData(invalidRows, scheduledTimestamp)
   }
 }
