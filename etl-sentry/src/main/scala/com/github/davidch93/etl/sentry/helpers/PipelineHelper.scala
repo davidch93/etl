@@ -108,10 +108,9 @@ class PipelineHelper private(groupName: String, maxThreads: Int) {
    * Sends an email notification for invalid data detected during validation.
    *
    * @param invalidRows        Array of invalid rows causing data quality issues.
-   * @param groupName          The name of the group related to the invalid data.
    * @param scheduledTimestamp The scheduled timestamp for the validation run.
    */
-  def notifyOnInvalidData(invalidRows: Array[Row], groupName: String, scheduledTimestamp: String): Unit = {
+  def notifyOnInvalidData(invalidRows: Array[Row], scheduledTimestamp: String): Unit = {
     val invalidDataDetails = invalidRows.mkString("\n")
     val message =
       s"""
