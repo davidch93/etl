@@ -1,40 +1,43 @@
 # ETL Sentry Module
 
-The **ETL Sentry** module is a data validation and quality monitoring pipeline designed to ensure that 
-data in a BigQuery warehouse adheres to predefined quality standards. 
-The module leverages the [Deequ](https://github.com/awslabs/deequ) library for data quality checks and 
-provides utilities for generating data validation reports, constraint suggestions, and notifications 
-for quality issues.
+The **ETL Sentry** module is a data validation and quality monitoring pipeline designed to ensure that data in a
+BigQuery warehouse adheres to predefined quality standards.
+The module leverages the [Deequ](https://github.com/awslabs/deequ) library for data quality checks and provides
+utilities for generating data validation reports, constraint suggestions, and notifications for quality issues.
 
 ## Table of Contents
+
 - [Requirements](#requirements)
 - [Features](#features)
 - [Usage](#usage)
-  - [Unit Test](#unit-test)
-  - [Configuration](#configuration)
-  - [Submit Validation Job](#submit-a-validation-job-to-google-cloud-dataproc)
-  - [Submit Constraint Suggestion Job](#submit-a-constraint-suggestion-job-to-google-cloud-dataproc)
+    - [Unit Test](#unit-test)
+    - [Configuration](#configuration)
+    - [Submit Validation Job](#submit-a-validation-job-to-google-cloud-dataproc)
+    - [Submit Constraint Suggestion Job](#submit-a-constraint-suggestion-job-to-google-cloud-dataproc)
 
 ## Requirements
 
 - **Java Version**: 8 or higher
 - **Build Tool**: Maven or Gradle
 - **Dependencies:**
-  - AWS Deequ SDK (`com.amazon.deequ`)
-  - Google Cloud BigQuery SDK (`com.google.cloud:google-cloud-bigquery`)
+    - Apache Spark
+    - AWS Deequ SDK (`com.amazon.deequ`)
+    - Google Cloud Dataproc SDK
+    - Google Cloud BigQuery SDK (`com.google.cloud:google-cloud-bigquery`)
 
 ## Features
-- **Data Validation Pipeline**
+
+- **Data Validation Pipeline**  
   Validates BigQuery data against predefined quality checks and stores results in a BigQuery repository.
 
-- **Constraint Suggestion Pipeline**
+- **Constraint Suggestion Pipeline**  
   Analyzes BigQuery data and generates constraint suggestions for improving data quality rules.
 
-- **Data Quality Notifications**
-  Sends notifications when data quality issues are detected.
-
-- **BigQuery Integration**
+- **BigQuery Integration**  
   Reads from and writes validation results to BigQuery tables.
+
+- **Data Quality Notifications**  
+  Sends notifications when data quality issues are detected.
 
 ## Usage
 
