@@ -39,7 +39,7 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
     .appName("DataValidationPipeline")
     .getOrCreate()
 
-  private val pipelineHelper = PipelineHelper(config.maxThreads)
+  private val pipelineHelper = PipelineHelper(config.groupName, config.maxThreads)
   private val metricsRepository = BigQueryMetricsRepository(spark, config.deequRepositoryConfig)
 
   private var executionDate: String = _
@@ -63,7 +63,7 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
    * Sends notifications for any data quality issues.
    */
   override def start(): Unit = {
-    logger.info(s"[ETL-SENTRY] Starting ${config.groupName} jobs.")
+    logger.info(s"[ETL-SENTRY] Starting the `${config.groupName}` jobs.")
 
     val tablesToValidate = filterTablesToValidate(config.tableWhitelist)
     val isValidationSuccessful = pipelineHelper.executeJobs(tablesToValidate, validateTable)
@@ -72,7 +72,7 @@ class ValidationPipeline(configPath: String, scheduledTimestamp: String) extends
       doNotifyOnDataQualityIssueDetected()
     }
 
-    logger.info(f"[ETL-SENTRY] All ${config.groupName} jobs finished!")
+    logger.info(f"[ETL-SENTRY] All `${config.groupName}` jobs finished!")
   }
 
   /**

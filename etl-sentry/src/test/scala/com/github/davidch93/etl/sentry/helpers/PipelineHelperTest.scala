@@ -10,7 +10,7 @@ import scala.collection.JavaConverters._
 class PipelineHelperTest extends AnyFunSuite with Matchers {
 
   test("Executing jobs should execute all jobs and return true if all succeed") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
     val tableWhitelist = Array("table1", "table2")
     val doJob: String => Boolean = _ => true
 
@@ -20,7 +20,7 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
   }
 
   test("Executing jobs should return false if any job fails") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
     val tableWhitelist = Array("table1", "table2", "table3")
     val doJob: String => Boolean = tableName => tableName != "table2"
 
@@ -30,7 +30,7 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
   }
 
   test("Generating Deequ Checks should handle empty fields") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
     val fields = List.empty[Field]
 
     val checks = pipelineHelper.generateChecks(fields)
@@ -39,7 +39,7 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
   }
 
   test("Generating Deequ Checks for MySQL schema should generate checks for field rules") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
 
     val schemaFilePath = "src/test/resources/schema/mysql/github_staging_orders/schema.json"
     val table = SchemaLoader.loadTableSchema(schemaFilePath)
@@ -60,7 +60,7 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
   }
 
   test("Generating Deequ Checks for PostgreSQL should generate checks for field rules") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
 
     val schemaFilePath = "src/test/resources/schema/postgresql/github_staging_users/schema.json"
     val table = SchemaLoader.loadTableSchema(schemaFilePath)
@@ -75,7 +75,7 @@ class PipelineHelperTest extends AnyFunSuite with Matchers {
   }
 
   test("Generating Deequ Checks without any rules defined should return an empty rules") {
-    val pipelineHelper = PipelineHelper(2)
+    val pipelineHelper = PipelineHelper("test", 2)
 
     val schemaFilePath = "src/test/resources/schema/mongodb/github_staging_transactions/schema.json"
     val table = SchemaLoader.loadTableSchema(schemaFilePath)

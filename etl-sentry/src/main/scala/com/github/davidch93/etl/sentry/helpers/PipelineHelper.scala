@@ -20,10 +20,11 @@ import scala.jdk.CollectionConverters._
  * Deequ checks, and email notifications to streamline pipeline operations.
  *
  * @constructor Private constructor to initialize a pipeline helper with the specified thread pool size.
+ * @param groupName  The group name of the job.
  * @param maxThreads The maximum number of threads to use for parallel job execution.
  * @author david.christianto
  */
-class PipelineHelper private(maxThreads: Int) {
+class PipelineHelper private(groupName: String, maxThreads: Int) {
 
   private val logger = LoggerFactory.getLogger(getClass.getName)
 
@@ -46,9 +47,9 @@ class PipelineHelper private(maxThreads: Int) {
       .map(future => Await.result(future, Duration.Inf))
       .forall(status => status)
 
-    logger.info("[ETL-SENTRY] Shutting down the executor service!")
+    logger.info(s"[ETL-SENTRY] Shutting down the executor service for the `$groupName` job!")
     executorService.shutdown()
-    logger.info("[ETL-SENTRY] Finished shutting down the executor service!")
+    logger.info(s"[ETL-SENTRY] Finished shutting down the executor service for the `$groupName` job!")
 
     allJobsSuccessful
   }
@@ -135,10 +136,11 @@ object PipelineHelper {
   /**
    * Creates a new `PipelineHelper` instance with the specified maximum number of threads.
    *
+   * @param groupName  The group name of the job.
    * @param maxThreads The maximum number of threads to use for parallel processing.
    * @return A `PipelineHelper` instance.
    */
-  def apply(maxThreads: Int): PipelineHelper = {
-    new PipelineHelper(maxThreads)
+  def apply(groupName: String, maxThreads: Int): PipelineHelper = {
+    new PipelineHelper(groupName, maxThreads)
   }
 }
