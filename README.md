@@ -12,6 +12,8 @@ Apache Spark, Kafka, and Google BigQuery.
     - [Data Pool Daily](#data-pool-daily)
     - [Data Pool Stream](#data-pool-stream-streaming)
     - [Data Pool Real-time](#data-pool-real-time)
+    - [Data Pool Job History](#data-pool-job-history)
+    - [Data Sentry](#data-sentry)
 - [Usage](#usage)
     - [Unit Test](#unit-test)
 
@@ -29,7 +31,7 @@ Raw data from OLTP databases is stored in Google Cloud Storage (GCS) with the fo
 | Field Name            | Type      | Description                                                                                                                                                                             |
 |-----------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ts_ms`               | Long      | The field that displays the time at which the CDC connector processed the event.                                                                                                        |
-| `op`                  | String    | The event type.                                                                                                                                                                         |
+| `op`                  | String    | The type of operation performed: 'c' for create, 'u' for update, 'd' for delete.                                                                                                        |
 | `source`              | String    | The source field is structured exactly as standard data change events that the connector writes to table-specific topics. This field is useful to correlate events on different topics. |
 | `before`              | String    | An optional field that specifies the state of the row before the event occurred.                                                                                                        |
 | `after`               | String    | An optional field that specifies the state of the row after the event occurred.                                                                                                         |
@@ -48,11 +50,12 @@ Example:
 - `bronze_daily_postresql`
 - `bronze_daily_mongodb`
 
-| Field Name    | Type    | Description                                                |
-|---------------|---------|------------------------------------------------------------|
-| `id`          | Long    | The primary or foreign keys of the OLTP databases.         |
-| ...           | ...     | The other fields that you register in the Schema Contract. |
-| `_is_deleted` | Boolean | The status of the row: `True` if deleted, `False` if not.  |
+| Field Name         | Type      | Description                                                      |
+|--------------------|-----------|------------------------------------------------------------------|
+| `id`               | Long      | The primary or foreign keys of the OLTP databases.               |
+| ...                | ...       | The other fields that you register in the Schema Contract.       |
+| `_is_deleted`      | Boolean   | The status of the row: `True` if deleted, `False` if not.        |
+| `audit_write_time` | Timestamp | The timestamp when the record was written for auditing purposes. |
 
 ### Data Pool Stream (streaming)
 
@@ -67,20 +70,20 @@ Example:
 - `bronze_stream_postresql`
 - `bronze_stream_mongodb`
 
-| Field Name          | Type      | Description                                                                            |
-|---------------------|-----------|----------------------------------------------------------------------------------------|
-| `id`                | Long      | The primary or foreign keys of the OLTP databases.                                     |
-| ...                 | ...       | The other fields that you register in the Schema Contract.                             |
-| `_is_deleted`       | Boolean   | The status of the row: `True` if deleted, `False` if not.                              |
-| `_op`               | String    | The event type.                                                                        |
-| `_ts_ms`            | Long      | The field that displays the time at which the OLTP database processed the transaction. |
-| `_file`             | String    | The binlog filename. This field will appear on the MySQL table only.                   |
-| `_pos`              | Long      | The binlog position. This field will appear on the MySQL table only.                   |
-| `_lsn`              | Long      | The log sequence number. This field will appear on the PostgreSQL table only.          |
-| `_ord`              | Long      | The order of data. This field will appear on the MongoDB table only.                   |
-| `_table_name`       | String    | The table name.                                                                        |
-| `_source`           | String    | The source system. E.g., MySQL, PostgreSQL, MongoDB.                                   |
-| `_audit_write_time` | Timestamp | The field that displays the time at which the ETL Stream processed the event.          |
+| Field Name          | Type      | Description                                                                              |
+|---------------------|-----------|------------------------------------------------------------------------------------------|
+| `id`                | Long      | The primary or foreign keys of the OLTP databases.                                       |
+| ...                 | ...       | The other fields that you register in the Schema Contract.                               |
+| `_is_deleted`       | Boolean   | The status of the row: `True` if deleted, `False` if not.                                |
+| `_table_name`       | String    | The name of the source table.                                                            |
+| `_source`           | String    | The source system. E.g., MySQL, PostgreSQL, MongoDB.                                     |
+| `_op`               | String    | The type of operation performed: 'c' for create, 'u' for update, 'd' for delete.         |
+| `_ts_partition`     | Long      | The native timestamp of the database transaction logs in format `yyyy-MM-dd HH:mm:ss z`. |
+| `_file`             | String    | The binlog filename. This field will appear on the MySQL table only.                     |
+| `_pos`              | Long      | The binlog position. This field will appear on the MySQL table only.                     |
+| `_lsn`              | Long      | The log sequence number. This field will appear on the PostgreSQL table only.            |
+| `_ord`              | Long      | The order of data. This field will appear on the MongoDB table only.                     |
+| `_audit_write_time` | Timestamp | The timestamp when the record was written for auditing purposes                          |
 
 ### Data Pool Real-time
 
@@ -100,6 +103,14 @@ Example:
 | `id`          | Long    | The primary or foreign keys of the OLTP databases.         |
 | ...           | ...     | The other fields that you register in the Schema Contract. |
 | `_is_deleted` | Boolean | The status of the row: `True` if deleted, `False` if not.  |
+
+### Data Pool Job History
+
+TBA
+
+### Data Sentry
+
+TBA
 
 ## Requirements
 
