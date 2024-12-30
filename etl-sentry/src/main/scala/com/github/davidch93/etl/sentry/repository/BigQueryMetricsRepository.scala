@@ -42,7 +42,7 @@ class BigQueryMetricsRepository private(
    * {{{
    *   root
    *    |-- validation_date: long (nullable = false)
-   *    |-- type: string (nullable = false)
+   *    |-- source: string (nullable = false)
    *    |-- table_name: string (nullable = false)
    *    |-- entity: string (nullable = false)
    *    |-- instance: string (nullable = false)
